@@ -59,6 +59,7 @@ nav{
 nav ul{
   display:flex;
   justify-content:center;
+  align-items:center;
   gap:.25rem;
   list-style:none;
   padding:.75rem 1rem;
@@ -79,6 +80,16 @@ nav button{
 
 nav button:hover{background:#eef3fb;color:var(--primary)}
 nav button.active{background:var(--primary);color:white}
+
+nav button.logout-button{
+  background:var(--danger);
+  color:white
+}
+
+nav button.logout-button:hover{
+  background:#b71c1c;
+  color:white
+}
 
 main{
   max-width:1100px;
@@ -330,6 +341,15 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <li><button onclick="showSection('quiz',this)">Kuis</button></li>
 <li><button onclick="showSection('tips',this)">Tips</button></li>
 <li><button id="nav-leaderboard" style="display:none" onclick="showSection('leaderboard',this)">Leaderboard</button></li>
+<li>
+  <button
+    id="logout-btn"
+    class="logout-button"
+    style="display:none"
+    onclick="logoutUser()">
+    ↪ Logout
+  </button>
+</li>
 </ul>
 </nav>
 
@@ -1174,8 +1194,11 @@ function stopHackerSimulation(){
     clearInterval(hackerInterval);
     hackerInterval = null;
 
-    document.getElementById('hacker-status').textContent =
-      'Status: Dihentikan';
+    const status = document.getElementById('hacker-status');
+
+    if(status){
+      status.textContent = 'Status: Dihentikan';
+    }
   }
 }
 
@@ -1567,6 +1590,10 @@ function hideAdminModal(){
   document.getElementById('admin-modal').style.display = 'none';
 }
 
+// =====================================================
+// UPDATE TAMPILAN BERDASARKAN ROLE
+// =====================================================
+
 function updateNavForRole(){
   userRole = localStorage.getItem('ds_user_role') || 'user';
   userName = localStorage.getItem('ds_user_name') || 'Warga';
@@ -1582,19 +1609,78 @@ function updateNavForRole(){
   document.getElementById('nav-leaderboard').style.display =
     userRole === 'admin' ? 'block' : 'none';
 
-  showSection('home');
+  // Tombol logout hanya muncul setelah login berhasil.
+  document.getElementById('logout-btn').style.display = 'block';
 
+  showSection('home');
   displayProgressSummary();
 
-  const tipsCompleted =
-    userProgress.moduleProgress.tips.completed;
-
-  if(tipsCompleted){
+  if(userProgress.moduleProgress.tips.completed){
     const button = document.getElementById('tips-complete-btn');
 
     button.disabled = true;
     button.textContent = '✓ Materi Sudah Selesai';
   }
+}
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function logoutUser(){
+  const confirmed = confirm('Apakah kamu yakin ingin logout?');
+
+  if(!confirmed) return;
+
+  // Hentikan simulasi yang sedang berjalan.
+  stopHackerSimulation();
+
+  // Hentikan timer pemeriksaan password.
+  clearTimeout(passwordTimer);
+
+  // Tunggu antrean penyimpanan progres selesai.
+  saveQueue.then(()=>{
+    console.log('Penyimpanan progres selesai sebelum logout.');
+  });
+
+  // Hapus sesi login, bukan data progres.
+  localStorage.removeItem('ds_user_name');
+  localStorage.removeItem('ds_user_role');
+
+  userName = '';
+  userRole = 'user';
+
+  // Sembunyikan tombol khusus admin.
+  document.getElementById('nav-leaderboard').style.display = 'none';
+
+  // Sembunyikan tombol logout.
+  document.getElementById('logout-btn').style.display = 'none';
+
+  // Reset judul header.
+  document.querySelector('header h1').textContent =
+    '🔐 Simulasi Keamanan Digital';
+
+  // Reset nama pada halaman beranda.
+  document.querySelector('#home .card h2').textContent =
+    'Selamat Datang! 👋';
+
+  // Tutup modal admin jika masih terbuka.
+  document.getElementById('admin-modal').style.display = 'none';
+
+  // Reset formulir login.
+  document.getElementById('user-name').value = '';
+  document.getElementById('user-role').value = 'user';
+  document.getElementById('admin-password').value = '';
+
+  // Kembali ke halaman beranda.
+  showSection('home');
+
+  // Tampilkan halaman login.
+  showWelcomeScreen();
+
+  alert('Kamu berhasil logout.');
+
+  // Data progres dan identitas perangkat tidak dihapus.
 }
 
 // =====================================================
@@ -1777,8 +1863,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
   const savedName = localStorage.getItem('ds_user_name');
   const savedRole = localStorage.getItem('ds_user_role');
 
-  // Admin harus memasukkan password setiap kali membuka sesi baru.
-  // Sesi peserta tetap dapat dipulihkan dari browser.
+  // Admin wajib login kembali setiap membuka sesi baru.
   if(savedName && savedRole === 'user'){
     userName = savedName;
     userRole = 'user';
