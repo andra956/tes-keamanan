@@ -5,259 +5,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simulasi Keamanan Digital — Desa Kapur, Kubu Raya</title>
+
 <style>
-  :root {
-    --primary: #1a73e8;
-    --primary-dark: #0d47a1;
-    --danger: #d32f2f;
-    --success: #2e7d32;
-    --warning: #f57f17;
-    --bg: #f0f4f8;
-    --card: #ffffff;
-    --text: #1a1a2e;
-    --muted: #5f6b7a;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  header {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    color: white;
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-  }
-  header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-  header p { opacity: 0.9; font-size: 1.05rem; max-width: 800px; margin: 0 auto; }
-  .badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.2);
-    border-radius: 999px;
-    padding: 0.25rem 1rem;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-  }
-
-  nav {
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    overflow-x: auto;
-  }
-  nav ul {
-    display: flex;
-    justify-content: center;
-    gap: 0.25rem;
-    list-style: none;
-    padding: 0.75rem 1rem;
-    min-width: max-content;
-  }
-  nav button {
-    background: transparent;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  nav button:hover { background: #eef3fb; color: var(--primary); }
-  nav button.active { background: var(--primary); color: white; }
-
-  main { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
-
-  .section { display: none; }
-  .section.active { display: block; }
-
-  .card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-  .card h2 { color: var(--primary-dark); margin-bottom: 1rem; }
-  .card h3 { margin-bottom: 0.75rem; }
-
-  .btn {
-    display: inline-block;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0.25rem;
-  }
-  .btn-primary { background: var(--primary); color: white; }
-  .btn-primary:hover { background: var(--primary-dark); }
-  .btn-danger { background: var(--danger); color: white; }
-  .btn-success { background: var(--success); color: white; }
-  .btn-warning { background: var(--warning); color: white; }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .alert {
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1rem 0;
-    display: none;
-  }
-  .alert.show { display: block; }
-  .alert-success { background: #e8f5e9; color: #1b5e20; border-left: 4px solid #2e7d32; }
-  .alert-danger { background: #ffebee; color: #b71c1c; border-left: 4px solid #d32f2f; }
-  .alert-warning { background: #fff8e1; color: #e65100; border-left: 4px solid #f57f17; }
-  .alert-info { background: #e3f2fd; color: #0d47a1; border-left: 4px solid #1976d2; }
-
-  .quiz-options { display: grid; gap: 0.5rem; margin-top: 1rem; }
-  .quiz-option {
-    padding: 0.85rem 1rem;
-    border: 2px solid #dce3ec;
-    border-radius: 8px;
-    background: white;
-    text-align: left;
-    cursor: pointer;
-    font-size: 0.95rem;
-  }
-  .quiz-option:hover:not(:disabled) { border-color: var(--primary); background: #f5f9ff; }
-  .quiz-option.correct { border-color: var(--success); background: #e8f5e9; }
-  .quiz-option.wrong { border-color: var(--danger); background: #ffebee; }
-
-  input, select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 1rem;
-    margin: 0.4rem 0 1rem;
-  }
-  label { font-weight: 600; display: block; }
-
-  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-
-  .stat {
-    text-align: center;
-    background: #f5f8fc;
-    border-radius: 10px;
-    padding: 1rem;
-  }
-  .stat strong { display: block; font-size: 1.8rem; color: var(--primary); }
-
-  .progress-bar {
-    height: 12px;
-    background: #e0e7ef;
-    border-radius: 99px;
-    overflow: hidden;
-    margin: 0.75rem 0;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #1a73e8, #42a5f5);
-    transition: width 0.3s;
-  }
-
-  .phishing-email {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1.25rem;
-    margin: 1rem 0;
-  }
-  .phishing-email .email-header {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-  .email-link {
-    display: inline-block;
-    color: #1565c0;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .password-meter {
-    height: 8px;
-    border-radius: 99px;
-    background: #eee;
-    margin: 0.5rem 0;
-    overflow: hidden;
-  }
-  .password-meter-fill { height: 100%; width: 0; transition: all 0.3s; }
-
-  .otp-boxes { display: flex; gap: 0.5rem; justify-content: center; margin: 1rem 0; }
-  .otp-boxes input {
-    width: 48px;
-    height: 55px;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
-
-  .hacker-terminal {
-    background: #111827;
-    color: #4ade80;
-    padding: 1.25rem;
-    border-radius: 8px;
-    font-family: monospace;
-    min-height: 180px;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    margin: 1rem 0;
-  }
-
-  .tip-item {
-    padding: 1rem;
-    border-bottom: 1px solid #e9edf3;
-  }
-  .tip-item:last-child { border-bottom: none; }
-
-  .modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 1rem;
-  }
-  .modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 14px;
-    width: 100%;
-    max-width: 420px;
-  }
-
-  footer {
-    text-align: center;
-    padding: 2rem;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-
-  @media(max-width:700px) {
-    header h1 { font-size: 1.5rem; }
-    main { padding: 0 1rem; }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    nav ul { justify-content: flex-start; }
-    nav button { padding: 0.55rem 0.8rem; font-size: 0.85rem; }
-    .card { padding: 1rem; }
-  }
+:root {
+  --primary:#1a73e8;
+  --primary-dark:#0d47a1;
+  --danger:#d32f2f;
+  --success:#2e7d32;
+  --warning:#f57f17;
+  --bg:#f0f4f8;
+  --card:#fff;
+  --text:#1a1a2e;
+  --muted:#5f6b7a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:white;padding:2.5rem 1.5rem;text-align:center}
+header h1{font-size:2rem;margin-bottom:.5rem}
+header p{opacity:.9;font-size:1.05rem;max-width:800px;margin:auto}
+.badge{display:inline-block;background:#ffffff33;border-radius:999px;padding:.25rem 1rem;font-size:.85rem;margin-bottom:1rem}
+nav{background:white;box-shadow:0 2px 10px #0001;position:sticky;top:0;z-index:100;overflow-x:auto}
+nav ul{display:flex;justify-content:center;gap:.25rem;list-style:none;padding:.75rem 1rem;min-width:max-content}
+nav button{background:transparent;border:0;padding:.6rem 1.2rem;border-radius:8px;font-size:.95rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap}
+nav button:hover{background:#eef3fb;color:var(--primary)}
+nav button.active{background:var(--primary);color:white}
+main{max-width:1100px;margin:2rem auto;padding:0 1.5rem}
+.section{display:none}.section.active{display:block}
+.card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px #0000000f}
+.card h2{color:var(--primary-dark);margin-bottom:1rem}
+.card h3{margin-bottom:.75rem}
+.btn{display:inline-block;border:0;border-radius:8px;padding:.75rem 1.5rem;font-size:1rem;font-weight:600;cursor:pointer;margin:.25rem}
+.btn-primary{background:var(--primary);color:white}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-danger{background:var(--danger);color:white}
+.btn-success{background:var(--success);color:white}
+.btn-warning{background:var(--warning);color:white}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.alert{padding:1rem;border-radius:8px;margin:1rem 0;display:none}
+.alert.show{display:block}
+.alert-success{background:#e8f5e9;color:#1b5e20;border-left:4px solid var(--success)}
+.alert-danger{background:#ffebee;color:#b71c1c;border-left:4px solid var(--danger)}
+.alert-warning{background:#fff8e1;color:#e65100;border-left:4px solid var(--warning)}
+.alert-info{background:#e3f2fd;color:#0d47a1;border-left:4px solid #1976d2}
+.quiz-options{display:grid;gap:.5rem;margin-top:1rem}
+.quiz-option{padding:.85rem 1rem;border:2px solid #dce3ec;border-radius:8px;background:white;text-align:left;cursor:pointer;font-size:.95rem}
+.quiz-option:hover:not(:disabled){border-color:var(--primary);background:#f5f9ff}
+.quiz-option.correct{border-color:var(--success);background:#e8f5e9}
+.quiz-option.wrong{border-color:var(--danger);background:#ffebee}
+input,select{width:100%;padding:.75rem;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;margin:.4rem 0 1rem}
+label{font-weight:600;display:block}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.stat{text-align:center;background:#f5f8fc;border-radius:10px;padding:1rem}
+.stat strong{display:block;font-size:1.8rem;color:var(--primary)}
+.progress-bar{height:12px;background:#e0e7ef;border-radius:99px;overflow:hidden;margin:.75rem 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1a73e8,#42a5f5);transition:width .3s}
+.phishing-email{background:white;border:1px solid #ddd;border-radius:8px;padding:1.25rem;margin:1rem 0}
+.email-header{border-bottom:1px solid #eee;padding-bottom:.75rem;margin-bottom:.75rem}
+.email-link{display:inline-block;color:#1565c0;text-decoration:underline;cursor:pointer}
+.password-meter{height:8px;border-radius:99px;background:#eee;margin:.5rem 0;overflow:hidden}
+.password-meter-fill{height:100%;width:0;transition:all .3s}
+.otp-boxes{display:flex;gap:.5rem;justify-content:center;margin:1rem 0}
+.otp-boxes input{width:48px;height:55px;text-align:center;font-size:1.4rem;font-weight:bold}
+.hacker-terminal{background:#111827;color:#4ade80;padding:1.25rem;border-radius:8px;font-family:monospace;min-height:180px;white-space:pre-wrap;overflow-wrap:anywhere;margin:1rem 0}
+.tip-item{padding:1rem;border-bottom:1px solid #e9edf3}
+.tip-item:last-child{border-bottom:none}
+.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
+.modal-content{background:white;padding:2rem;border-radius:14px;width:100%;max-width:420px}
+footer{text-align:center;padding:2rem;color:var(--muted);font-size:.9rem}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
+.table-wrap{overflow-x:auto}
+@media(max-width:700px){
+ header h1{font-size:1.5rem}
+ main{padding:0 1rem}
+ .grid-2,.grid-3{grid-template-columns:1fr}
+ nav ul{justify-content:flex-start}
+ nav button{padding:.55rem .8rem;font-size:.85rem}
+ .card{padding:1rem}
+}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -267,275 +96,559 @@
 </header>
 
 <nav>
-  <ul>
-    <li><button class="active" onclick="showSection('home',this)">Beranda</button></li>
-    <li><button onclick="showSection('phishing',this)">Phishing</button></li>
-    <li><button onclick="showSection('password',this)">Password</button></li>
-    <li><button onclick="showSection('hacker',this)">Simulasi Hacker</button></li>
-    <li><button onclick="showSection('otp',this)">OTP</button></li>
-    <li><button onclick="showSection('quiz',this)">Kuis</button></li>
-    <li><button onclick="showSection('tips',this)">Tips</button></li>
-    <li><button id="nav-leaderboard" style="display:none" onclick="showSection('leaderboard',this)">Leaderboard</button></li>
-  </ul>
+<ul>
+<li><button class="active" onclick="showSection('home',this)">Beranda</button></li>
+<li><button onclick="showSection('phishing',this)">Phishing</button></li>
+<li><button onclick="showSection('password',this)">Password</button></li>
+<li><button onclick="showSection('hacker',this)">Simulasi Hacker</button></li>
+<li><button onclick="showSection('otp',this)">OTP</button></li>
+<li><button onclick="showSection('quiz',this)">Kuis</button></li>
+<li><button onclick="showSection('tips',this)">Tips</button></li>
+<li><button id="nav-leaderboard" style="display:none" onclick="showSection('leaderboard',this)">Leaderboard</button></li>
+</ul>
 </nav>
 
 <main>
 
 <section id="home" class="section active">
-  <div class="card">
-    <h2>Selamat Datang! 👋</h2>
-    <p>Selamat datang di simulasi keamanan digital. Website ini dibuat untuk membantu masyarakat memahami ancaman di dunia digital melalui praktik langsung.</p>
-  </div>
+<div class="card">
+<h2>Selamat Datang! 👋</h2>
+<p>Website ini membantu masyarakat memahami ancaman di dunia digital melalui praktik langsung.</p>
+</div>
 
-  <div class="grid-3">
-    <div class="stat"><strong>6</strong>Materi Interaktif</div>
-    <div class="stat"><strong>10</strong>Soal Kuis</div>
-    <div class="stat"><strong>100%</strong>Simulasi Aman</div>
-  </div>
+<div class="grid-3">
+<div class="stat"><strong>6</strong>Materi Interaktif</div>
+<div class="stat"><strong>10</strong>Soal Kuis</div>
+<div class="stat"><strong>100%</strong>Simulasi Aman</div>
+</div>
 
-  <div class="card">
-    <h2>Materi Pembelajaran</h2>
-    <div class="tip-item"><strong>🎣 Phishing</strong><p>Kenali pesan dan situs palsu yang mencoba mencuri informasi pribadi.</p></div>
-    <div class="tip-item"><strong>🔑 Password</strong><p>Pelajari cara membuat kata sandi yang kuat dan aman.</p></div>
-    <div class="tip-item"><strong>💻 Simulasi Hacker</strong><p>Pahami bagaimana serangan brute-force bekerja melalui simulasi edukatif.</p></div>
-    <div class="tip-item"><strong>📱 OTP</strong><p>Pelajari mengapa kode OTP tidak boleh dibagikan.</p></div>
-    <div class="tip-item"><strong>📝 Kuis</strong><p>Uji pemahaman tentang keamanan digital.</p></div>
-    <div class="tip-item"><strong>🛡️ Tips Keamanan</strong><p>Terapkan kebiasaan aman saat menggunakan internet.</p></div>
-  </div>
+<div class="card">
+<h2>Materi Pembelajaran</h2>
+<div class="tip-item"><strong>🎣 Phishing</strong><p>Kenali pesan dan situs palsu yang mencoba mencuri informasi pribadi.</p></div>
+<div class="tip-item"><strong>🔑 Password</strong><p>Pelajari cara membuat kata sandi yang kuat dan aman.</p></div>
+<div class="tip-item"><strong>💻 Simulasi Hacker</strong><p>Pahami brute-force melalui simulasi edukatif.</p></div>
+<div class="tip-item"><strong>📱 OTP</strong><p>Pelajari mengapa kode OTP tidak boleh dibagikan.</p></div>
+<div class="tip-item"><strong>📝 Kuis</strong><p>Uji pemahaman keamanan digital.</p></div>
+<div class="tip-item"><strong>🛡️ Tips</strong><p>Terapkan kebiasaan aman saat menggunakan internet.</p></div>
+</div>
 
-  <div class="card">
-    <h2>Mulai Belajar</h2>
-    <p>Pilih salah satu materi dari menu navigasi di atas untuk memulai simulasi.</p>
-    <button class="btn btn-primary" onclick="showSection('phishing')">Mulai Simulasi →</button>
-  </div>
+<div class="card">
+<h2>Mulai Belajar</h2>
+<p>Pilih materi dari menu navigasi di atas.</p>
+<button class="btn btn-primary" onclick="showSection('phishing')">Mulai Simulasi →</button>
+</div>
 </section>
 
 <section id="phishing" class="section">
-  <div class="card">
-    <h2>🎣 Simulasi Phishing</h2>
-    <p>Phishing adalah upaya penipuan untuk memperoleh informasi sensitif dengan menyamar sebagai pihak tepercaya.</p>
-  </div>
+<div class="card">
+<h2>🎣 Simulasi Phishing</h2>
+<p>Phishing adalah upaya penipuan untuk memperoleh informasi sensitif dengan menyamar sebagai pihak tepercaya.</p>
+</div>
 
-  <div class="card">
-    <h3>Contoh Email Mencurigakan</h3>
-    <div class="phishing-email">
-      <div class="email-header">
-        <p><strong>Dari:</strong> Bank Aman &lt;security@bank-aman-login.example&gt;</p>
-        <p><strong>Subjek:</strong> ⚠️ Akun Anda Akan Diblokir!</p>
-      </div>
-      <p>Yth. Nasabah,</p>
-      <p>Kami mendeteksi aktivitas tidak biasa pada rekening Anda. Untuk menghindari pemblokiran, segera verifikasi akun melalui tautan berikut:</p>
-      <p style="margin:1rem 0"><span class="email-link" onclick="showPhishingResult()">https://bank-aman-login.example/verifikasi</span></p>
-      <p>Jika tidak melakukan verifikasi dalam 24 jam, akun Anda akan diblokir permanen.</p>
-      <p>Hormat kami,<br>Tim Keamanan Bank Aman</p>
-    </div>
-    <p><strong>Menurut kamu, apakah email ini aman?</strong></p>
-    <button class="btn btn-danger" onclick="showPhishingResult()">🚨 Ini Phishing!</button>
-    <button class="btn btn-success" onclick="document.getElementById('phishing-result').innerHTML='<div class=&quot;alert show alert-warning&quot;>Perhatikan lagi! Email ini memiliki ciri phishing, seperti domain mencurigakan dan ancaman pemblokiran.</div>'">Email Aman</button>
-    <div id="phishing-result" class="alert"></div>
-  </div>
+<div class="card">
+<h3>Contoh Email Mencurigakan</h3>
+<div class="phishing-email">
+<div class="email-header">
+<p><strong>Dari:</strong> Bank Aman &lt;security@bank-aman-login.example&gt;</p>
+<p><strong>Subjek:</strong> ⚠️ Akun Anda Akan Diblokir!</p>
+</div>
+<p>Yth. Nasabah,</p>
+<p>Kami mendeteksi aktivitas tidak biasa pada rekening Anda. Untuk menghindari pemblokiran, segera verifikasi akun melalui tautan berikut:</p>
+<p style="margin:1rem 0"><span class="email-link" onclick="showPhishingResult(true)">https://bank-aman-login.example/verifikasi</span></p>
+<p>Jika tidak melakukan verifikasi dalam 24 jam, akun Anda akan diblokir permanen.</p>
+<p>Hormat kami,<br>Tim Keamanan Bank Aman</p>
+</div>
+<p><strong>Menurut kamu, apakah email ini aman?</strong></p>
+<button class="btn btn-danger" onclick="showPhishingResult(true)">🚨 Ini Phishing!</button>
+<button class="btn btn-success" onclick="showPhishingResult(false)">Email Aman</button>
+<div id="phishing-result" class="alert"></div>
+</div>
 
-  <div class="card">
-    <h3>Ciri-ciri Phishing</h3>
-    <ul style="padding-left:1.5rem">
-      <li>Alamat pengirim tidak resmi atau mencurigakan.</li>
-      <li>Pesan berisi ancaman atau tekanan waktu.</li>
-      <li>Tautan memiliki domain yang tidak sesuai.</li>
-      <li>Meminta password, PIN, atau informasi pribadi.</li>
-      <li>Menawarkan hadiah yang tidak masuk akal.</li>
-    </ul>
-  </div>
+<div class="card">
+<h3>Ciri-ciri Phishing</h3>
+<ul style="padding-left:1.5rem">
+<li>Alamat pengirim tidak resmi atau mencurigakan.</li>
+<li>Pesan berisi ancaman atau tekanan waktu.</li>
+<li>Tautan memiliki domain tidak sesuai.</li>
+<li>Meminta password, PIN, atau informasi pribadi.</li>
+<li>Menawarkan hadiah tidak masuk akal.</li>
+</ul>
+</div>
 </section>
 
 <section id="password" class="section">
-  <div class="card">
-    <h2>🔑 Simulasi Kekuatan Password</h2>
-    <p>Masukkan contoh password untuk melihat perkiraan tingkat kekuatannya. Jangan gunakan password asli kamu.</p>
-    <label for="password-input">Contoh Password</label>
-    <input type="text" id="password-input" placeholder="Masukkan contoh password..." oninput="checkPassword()">
-    <div class="password-meter"><div id="password-meter-fill" class="password-meter-fill"></div></div>
-    <p id="password-strength">Belum ada password.</p>
-    <div id="password-feedback" class="alert"></div>
-  </div>
-  <div class="card">
-    <h3>Tips Membuat Password Kuat</h3>
-    <ul style="padding-left:1.5rem">
-      <li>Gunakan minimal 12 karakter.</li>
-      <li>Campurkan huruf besar, huruf kecil, angka, dan simbol.</li>
-      <li>Hindari nama, tanggal lahir, atau informasi pribadi.</li>
-      <li>Jangan gunakan password yang sama di banyak akun.</li>
-      <li>Gunakan password manager tepercaya.</li>
-      <li>Aktifkan autentikasi dua faktor (2FA).</li>
-    </ul>
-  </div>
+<div class="card">
+<h2>🔑 Simulasi Kekuatan Password</h2>
+<p>Masukkan contoh password. Jangan gunakan password asli kamu.</p>
+<label for="password-input">Contoh Password</label>
+<input type="text" id="password-input" placeholder="Masukkan contoh password..." oninput="checkPassword()">
+<div class="password-meter"><div id="password-meter-fill" class="password-meter-fill"></div></div>
+<p id="password-strength">Belum ada password.</p>
+<div id="password-feedback" class="alert"></div>
+</div>
+
+<div class="card">
+<h3>Tips Membuat Password Kuat</h3>
+<ul style="padding-left:1.5rem">
+<li>Gunakan minimal 12 karakter.</li>
+<li>Campurkan huruf besar, kecil, angka, dan simbol.</li>
+<li>Hindari nama dan tanggal lahir.</li>
+<li>Jangan gunakan password yang sama di banyak akun.</li>
+<li>Gunakan password manager tepercaya.</li>
+<li>Aktifkan autentikasi dua faktor.</li>
+</ul>
+</div>
 </section>
 
 <section id="hacker" class="section">
-  <div class="card">
-    <h2>💻 Simulasi Serangan Brute-Force</h2>
-    <p>Brute-force adalah metode mencoba berbagai kemungkinan password secara berulang. Simulasi ini hanya berjalan di browser dan tidak menyerang sistem sungguhan.</p>
-    <label for="target-password">Password simulasi (maksimal 4 angka)</label>
-    <input id="target-password" type="text" maxlength="4" placeholder="Contoh: 1234">
-    <button class="btn btn-danger" onclick="startHackerSimulation()">▶ Mulai Simulasi</button>
-    <button class="btn btn-warning" onclick="stopHackerSimulation()">■ Hentikan</button>
-    <div class="hacker-terminal" id="hacker-terminal">[SYSTEM] Menunggu simulasi...
-[INFO] Masukkan password angka untuk memulai.
+<div class="card">
+<h2>💻 Simulasi Serangan Brute-Force</h2>
+<p>Simulasi ini berjalan hanya di browser dan tidak menyerang sistem sungguhan.</p>
+<label for="target-password">Password simulasi (maksimal 4 angka)</label>
+<input id="target-password" type="text" maxlength="4" placeholder="Contoh: 1234">
+<button class="btn btn-danger" onclick="startHackerSimulation()">▶ Mulai Simulasi</button>
+<button class="btn btn-warning" onclick="stopHackerSimulation()">■ Hentikan</button>
+<div class="hacker-terminal" id="hacker-terminal">[SYSTEM] Menunggu simulasi...
 [SAFE MODE] Simulasi lokal, tidak terhubung ke sistem luar.</div>
-    <div class="progress-bar"><div id="hacker-progress" class="progress-fill" style="width:0%"></div></div>
-    <p id="hacker-status">Status: Menunggu</p>
-  </div>
-  <div class="card">
-    <h3>Bagaimana Cara Mencegahnya?</h3>
-    <ul style="padding-left:1.5rem">
-      <li>Gunakan password panjang dan unik.</li>
-      <li>Aktifkan 2FA.</li>
-      <li>Gunakan pembatasan percobaan login.</li>
-      <li>Gunakan sistem deteksi aktivitas mencurigakan.</li>
-    </ul>
-  </div>
+<div class="progress-bar"><div id="hacker-progress" class="progress-fill" style="width:0%"></div></div>
+<p id="hacker-status">Status: Menunggu</p>
+</div>
+
+<div class="card">
+<h3>Bagaimana Cara Mencegahnya?</h3>
+<ul style="padding-left:1.5rem">
+<li>Gunakan password panjang dan unik.</li>
+<li>Aktifkan 2FA.</li>
+<li>Gunakan pembatasan percobaan login.</li>
+<li>Gunakan sistem deteksi aktivitas mencurigakan.</li>
+</ul>
+</div>
 </section>
 
 <section id="otp" class="section">
-  <div class="card">
-    <h2>📱 Simulasi Penipuan OTP</h2>
-    <p>OTP (One-Time Password) adalah kode sekali pakai untuk memverifikasi identitas. Jangan pernah membagikannya kepada orang lain.</p>
-  </div>
-  <div class="card">
-    <h3>Situasi Simulasi</h3>
-    <div class="phishing-email">
-      <p><strong>📞 Penelepon:</strong></p>
-      <p>"Halo, saya Pak Andi dari Bank Aman. Kami mendeteksi masalah pada akun Anda. Mohon berikan kode OTP yang baru saja masuk agar akun bisa kami amankan."</p>
-    </div>
-    <p><strong>Apa yang akan kamu lakukan?</strong></p>
-    <button class="btn btn-danger" onclick="showOtpResult(true)">Berikan kode OTP</button>
-    <button class="btn btn-success" onclick="showOtpResult(false)">Tolak memberikan OTP</button>
-    <div id="otp-result" class="alert"></div>
-  </div>
-  <div class="card">
-    <h3>Contoh Kode OTP</h3>
-    <p>Kode di bawah hanya contoh untuk pembelajaran. Jangan masukkan kode OTP sungguhan.</p>
-    <div class="otp-boxes">
-      <input value="4" readonly>
-      <input value="8" readonly>
-      <input value="2" readonly>
-      <input value="9" readonly>
-      <input value="1" readonly>
-      <input value="6" readonly>
-    </div>
-    <div class="alert show alert-warning">⚠️ Kode OTP bersifat rahasia. Petugas bank tidak akan meminta kode OTP kamu.</div>
-  </div>
+<div class="card">
+<h2>📱 Simulasi Penipuan OTP</h2>
+<p>OTP (One-Time Password) adalah kode sekali pakai untuk memverifikasi identitas. Jangan pernah membagikannya kepada orang lain.</p>
+</div>
+
+<div class="card">
+<h3>Situasi Simulasi</h3>
+<div class="phishing-email">
+<p><strong>📞 Penelepon:</strong></p>
+<p>"Halo, saya Pak Andi dari Bank Aman. Kami mendeteksi masalah pada akun Anda. Mohon berikan kode OTP yang baru saja masuk agar akun bisa kami amankan."</p>
+</div>
+<p><strong>Apa yang akan kamu lakukan?</strong></p>
+<button class="btn btn-danger" onclick="showOtpResult(true)">Berikan kode OTP</button>
+<button class="btn btn-success" onclick="showOtpResult(false)">Tolak memberikan OTP</button>
+<div id="otp-result" class="alert"></div>
+</div>
+
+<div class="card">
+<h3>Contoh Kode OTP</h3>
+<p>Kode di bawah hanya contoh untuk pembelajaran. Jangan masukkan kode OTP sungguhan.</p>
+<div class="otp-boxes">
+<input value="4" readonly><input value="8" readonly><input value="2" readonly>
+<input value="9" readonly><input value="1" readonly><input value="6" readonly>
+</div>
+<div class="alert show alert-warning">⚠️ Kode OTP bersifat rahasia. Petugas bank tidak akan meminta kode OTP kamu.</div>
+</div>
 </section>
 
 <section id="quiz" class="section">
-  <div class="card">
-    <h2>📝 Kuis Keamanan Digital</h2>
-    <p>Jawab pertanyaan berikut untuk menguji pemahamanmu.</p>
-    <h3 id="quiz-score">Skor: 0/0</h3>
-  </div>
-  <div class="card" id="quiz-content"></div>
-  <div class="card">
-    <button class="btn btn-primary" onclick="renderQuiz()">🔄 Ulangi Kuis</button>
-  </div>
+<div class="card">
+<h2>📝 Kuis Keamanan Digital</h2>
+<p>Jawab pertanyaan berikut untuk menguji pemahamanmu.</p>
+<h3 id="quiz-score">Skor: 0/0</h3>
+</div>
+<div class="card" id="quiz-content"></div>
+<div class="card">
+<button class="btn btn-primary" onclick="renderQuiz()">🔄 Ulangi Kuis</button>
+</div>
 </section>
 
 <section id="tips" class="section">
-  <div class="card">
-    <h2>🛡️ Tips Aman Berinternet</h2>
-    <div class="tip-item"><strong>1. Jaga Password</strong><p>Gunakan password unik dan panjang untuk setiap akun. Jangan bagikan kepada siapa pun.</p></div>
-    <div class="tip-item"><strong>2. Waspada Link</strong><p>Jangan sembarangan membuka tautan dari pesan atau email yang tidak dikenal.</p></div>
-    <div class="tip-item"><strong>3. Aktifkan 2FA</strong><p>Gunakan verifikasi dua langkah agar akun lebih terlindungi.</p></div>
-    <div class="tip-item"><strong>4. Jangan Bagikan OTP</strong><p>OTP adalah kode rahasia. Jangan berikan kepada siapa pun.</p></div>
-    <div class="tip-item"><strong>5. Update Perangkat</strong><p>Perbarui sistem operasi dan aplikasi secara rutin.</p></div>
-    <div class="tip-item"><strong>6. Gunakan Aplikasi Resmi</strong><p>Unduh aplikasi hanya dari toko aplikasi resmi.</p></div>
-    <div class="tip-item"><strong>7. Hati-hati Wi-Fi Publik</strong><p>Hindari transaksi sensitif menggunakan Wi-Fi publik yang tidak tepercaya.</p></div>
-    <div class="tip-item"><strong>8. Backup Data</strong><p>Simpan cadangan data penting di tempat yang aman.</p></div>
-    <div class="tip-item"><strong>9. Periksa Izin Aplikasi</strong><p>Berikan izin kamera, mikrofon, dan lokasi hanya jika memang diperlukan.</p></div>
-    <div class="tip-item"><strong>10. Laporkan Penipuan</strong><p>Simpan bukti dan laporkan penipuan kepada pihak berwenang atau platform terkait.</p></div>
-  </div>
+<div class="card">
+<h2>🛡️ Tips Aman Berinternet</h2>
+<div class="tip-item"><strong>1. Jaga Password</strong><p>Gunakan password unik dan panjang untuk setiap akun.</p></div>
+<div class="tip-item"><strong>2. Waspada Link</strong><p>Jangan sembarangan membuka tautan dari pesan tidak dikenal.</p></div>
+<div class="tip-item"><strong>3. Aktifkan 2FA</strong><p>Gunakan verifikasi dua langkah.</p></div>
+<div class="tip-item"><strong>4. Jangan Bagikan OTP</strong><p>OTP adalah kode rahasia.</p></div>
+<div class="tip-item"><strong>5. Update Perangkat</strong><p>Perbarui sistem operasi dan aplikasi secara rutin.</p></div>
+<div class="tip-item"><strong>6. Gunakan Aplikasi Resmi</strong><p>Unduh aplikasi dari toko aplikasi resmi.</p></div>
+<div class="tip-item"><strong>7. Hati-hati Wi-Fi Publik</strong><p>Hindari transaksi sensitif di Wi-Fi yang tidak tepercaya.</p></div>
+<div class="tip-item"><strong>8. Backup Data</strong><p>Simpan cadangan data penting di tempat aman.</p></div>
+<div class="tip-item"><strong>9. Periksa Izin Aplikasi</strong><p>Berikan izin hanya jika diperlukan.</p></div>
+<div class="tip-item"><strong>10. Laporkan Penipuan</strong><p>Simpan bukti dan laporkan penipuan.</p></div>
+<button id="tips-complete-btn" class="btn btn-success" onclick="completeTips()">✓ Tandai Materi Tips Selesai</button>
+<div id="tips-result" class="alert"></div>
+</div>
 </section>
 
 <section id="leaderboard" class="section">
-  <div class="card">
-    <h2>🏆 Admin Panel</h2>
-    <p>Ringkasan progres pengguna yang tersimpan pada perangkat ini.</p>
-    <div id="leaderboard-content"></div>
-  </div>
+<div class="card">
+<h2>🏆 Admin Panel</h2>
+<p>Daftar progres peserta yang tersimpan di Supabase.</p>
+<div id="leaderboard-content"></div>
+</div>
 </section>
 
 </main>
 
 <div id="welcome-screen" class="modal">
-  <div class="modal-content">
-    <h2>Selamat Datang! 👋</h2>
-    <p>Masukkan nama untuk memulai pembelajaran.</p>
-    <label for="user-name">Nama</label>
-    <input id="user-name" type="text" placeholder="Nama kamu">
-    <label for="user-role">Masuk sebagai</label>
-    <select id="user-role">
-      <option value="user">Peserta</option>
-      <option value="admin">Admin</option>
-    </select>
-    <button id="enter-btn" class="btn btn-primary" style="width:100%">Mulai</button>
-  </div>
+<div class="modal-content">
+<h2>Selamat Datang! 👋</h2>
+<p>Masukkan nama untuk memulai pembelajaran.</p>
+<label for="user-name">Nama</label>
+<input id="user-name" type="text" placeholder="Nama kamu">
+<label for="user-role">Masuk sebagai</label>
+<select id="user-role">
+<option value="user">Peserta</option>
+<option value="admin">Admin</option>
+</select>
+<button id="enter-btn" class="btn btn-primary" style="width:100%">Mulai</button>
+</div>
 </div>
 
 <div id="admin-modal" class="modal">
-  <div class="modal-content">
-    <h2>🔐 Login Admin</h2>
-    <p>Masukkan password admin.</p>
-    <label for="admin-password">Password</label>
-    <input id="admin-password" type="password" placeholder="Password admin">
-    <button id="admin-login-btn" class="btn btn-primary">Login</button>
-    <button id="admin-cancel-btn" class="btn btn-warning">Batal</button>
-  </div>
+<div class="modal-content">
+<h2>🔐 Login Admin</h2>
+<p>Masukkan password admin.</p>
+<label for="admin-password">Password</label>
+<input id="admin-password" type="password" placeholder="Password admin">
+<button id="admin-login-btn" class="btn btn-primary">Login</button>
+<button id="admin-cancel-btn" class="btn btn-warning">Batal</button>
+</div>
 </div>
 
 <footer>
-  <p>© 2026 Simulasi Keamanan Digital — Kegiatan Penyuluhan Desa Kapur, Kubu Raya, Kalimantan Barat.</p>
-  <p>Media edukasi. Seluruh simulasi berjalan secara lokal dan tidak melakukan serangan nyata.</p>
+<p>© 2026 Simulasi Keamanan Digital — Kegiatan Penyuluhan Desa Kapur, Kubu Raya, Kalimantan Barat.</p>
+<p>Media edukasi. Seluruh simulasi berjalan secara lokal dan tidak melakukan serangan nyata.</p>
 </footer>
 
-<!-- Supabase JS v2 harus dimuat sebelum kode utama -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-// ================= NAVIGATION =================
+// =====================================================
+// KONFIGURASI SUPABASE
+// =====================================================
+
+const supabaseUrl = 'https://hrxclmxuybdjjxpglpwj.supabase.co';
+const supabasePublishableKey = 'sb_publishable_DNzxKYySuSxOWzmI9bgWKA_OX8tJcbF';
+
+const supabaseClient = window.supabase
+  ? window.supabase.createClient(supabaseUrl, supabasePublishableKey)
+  : null;
+
+// =====================================================
+// DATA PENGGUNA DAN PROGRES
+// =====================================================
+
+const USER_ID_KEY = 'digital_security_user_id';
+const PROGRESS_KEY = 'digital_security_progress';
+
+let userName = '';
+let userRole = 'user';
+
+let userProgress = {
+  userId: null,
+  userName: '',
+  totalQuizzesTaken: 0,
+  totalQuizzesCorrect: 0,
+  moduleProgress: {
+    phishing: { completed:false, score:0 },
+    password: { completed:false, bestScore:0 },
+    hacker: { completed:false, bestTime:null },
+    otp: { completed:false },
+    quiz: { completed:false, score:0 },
+    tips: { completed:false }
+  },
+  points: 0,
+  earnedBadges: []
+};
+
+let saveQueue = Promise.resolve();
+
+function makeUserId() {
+  return 'desa-kapur-' + (
+    crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now() + '-' + Math.random().toString(36).slice(2)
+  );
+}
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#039;'
+  })[c]);
+}
+
+async function initUser() {
+  let id = localStorage.getItem(USER_ID_KEY);
+
+  if (!id) {
+    id = makeUserId();
+    localStorage.setItem(USER_ID_KEY, id);
+  }
+
+  userProgress.userId = id;
+}
+
+function loadLocalProgress() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PROGRESS_KEY) || 'null');
+
+    if (!saved) return;
+
+    userProgress = {
+      ...userProgress,
+      ...saved,
+      userId: userProgress.userId,
+      moduleProgress: {
+        ...userProgress.moduleProgress,
+        ...(saved.moduleProgress || {})
+      },
+      earnedBadges: Array.isArray(saved.earnedBadges)
+        ? saved.earnedBadges : []
+    };
+  } catch (error) {
+    console.error('Data lokal tidak valid:', error);
+  }
+}
+
+function saveLocalProgress() {
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(userProgress));
+}
+
+function displayProgressSummary() {
+  let box = document.getElementById('progress-summary');
+
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'progress-summary';
+    box.style.cssText =
+      'position:fixed;right:12px;bottom:12px;width:210px;max-width:calc(100vw - 24px);z-index:90;font-size:13px';
+    document.body.appendChild(box);
+  }
+
+  box.innerHTML = `
+    <div class="alert show alert-info" style="margin:0;box-shadow:0 2px 10px #0002">
+      <strong>📊 Progres Kamu</strong><br>
+      Poin: ${Number(userProgress.points) || 0}<br>
+      Badge: ${userProgress.earnedBadges.length}
+    </div>
+  `;
+}
+
+// =====================================================
+// BADGE DAN PENYIMPANAN
+// =====================================================
+
+function updateBadges() {
+  const rules = [
+    { name:'beginner', points:50 },
+    { name:'intermediate', points:150 },
+    { name:'expert', points:300 }
+  ];
+
+  rules.forEach(rule => {
+    if (
+      userProgress.points >= rule.points &&
+      !userProgress.earnedBadges.includes(rule.name)
+    ) {
+      userProgress.earnedBadges.push(rule.name);
+    }
+  });
+}
+
+async function saveProgressToSupabase() {
+  if (!supabaseClient || !userProgress.userId) {
+    console.warn('Supabase tidak tersedia. Data tersimpan lokal.');
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from('user_progress')
+    .upsert({
+      user_id: userProgress.userId,
+      progress_data: userProgress,
+      updated_at: new Date().toISOString()
+    }, { onConflict:'user_id' });
+
+  if (error) throw error;
+}
+
+async function saveProgress(module, data = {}) {
+  const item = userProgress.moduleProgress[module];
+
+  if (!item) return;
+
+  let points = 0;
+
+  if (module === 'phishing') {
+    if (!item.completed) points = 10;
+    item.completed = true;
+    item.score = Math.max(item.score || 0, data.score || 10);
+  }
+
+  if (module === 'password') {
+    if (!item.completed) points = 10;
+    item.completed = true;
+    item.bestScore = Math.max(item.bestScore || 0, data.bestScore || 0);
+  }
+
+  if (module === 'hacker') {
+    if (!item.completed) points = 10;
+    item.completed = true;
+
+    if (item.bestTime === null || data.bestTime < item.bestTime) {
+      item.bestTime = data.bestTime;
+    }
+  }
+
+  if (module === 'otp') {
+    if (!item.completed) points = 10;
+    item.completed = true;
+  }
+
+  if (module === 'tips') {
+    if (!item.completed) points = 5;
+    item.completed = true;
+  }
+
+  if (module === 'quiz') {
+    userProgress.totalQuizzesTaken++;
+    userProgress.totalQuizzesCorrect += data.correct || 0;
+    points = data.correct || 0;
+    item.completed = true;
+    item.score = data.score || 0;
+  }
+
+  userProgress.points += points;
+  updateBadges();
+  saveLocalProgress();
+  displayProgressSummary();
+
+  saveQueue = saveQueue.then(async () => {
+    try {
+      await saveProgressToSupabase();
+      console.log('Progres berhasil disimpan.');
+    } catch (error) {
+      console.error('Gagal menyimpan progres Supabase:', error.message);
+    }
+  });
+
+  return saveQueue;
+}
+
+async function loadProgress() {
+  loadLocalProgress();
+
+  if (supabaseClient && userProgress.userId) {
+    try {
+      const { data, error } = await supabaseClient
+        .from('user_progress')
+        .select('progress_data')
+        .eq('user_id', userProgress.userId)
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (data?.progress_data) {
+        const remote = data.progress_data;
+
+        userProgress = {
+          ...userProgress,
+          ...remote,
+          userId: userProgress.userId,
+          moduleProgress: {
+            ...userProgress.moduleProgress,
+            ...(remote.moduleProgress || {})
+          },
+          earnedBadges: Array.isArray(remote.earnedBadges)
+            ? remote.earnedBadges : []
+        };
+
+        saveLocalProgress();
+      }
+    } catch (error) {
+      console.warn('Gagal memuat data Supabase:', error.message);
+    }
+  }
+
+  displayProgressSummary();
+}
+
+// =====================================================
+// NAVIGASI
+// =====================================================
+
 function showSection(sectionId, button) {
   document.querySelectorAll('.section').forEach(section => {
     section.classList.remove('active');
   });
 
   const target = document.getElementById(sectionId);
-  if (target) target.classList.add('active');
+  if (!target) return;
+
+  target.classList.add('active');
 
   document.querySelectorAll('nav button').forEach(btn => {
     btn.classList.remove('active');
   });
 
-  if (button) button.classList.add('active');
+  if (button) {
+    button.classList.add('active');
+  } else {
+    const navButton = [...document.querySelectorAll('nav button')]
+      .find(btn => btn.getAttribute('onclick')?.includes("'" + sectionId + "'"));
 
-  if (sectionId === 'quiz' && !document.getElementById('quiz-content').children.length) {
-    renderQuiz();
+    if (navButton) navButton.classList.add('active');
   }
 
-  if (sectionId === 'leaderboard') {
-    renderLeaderboard();
+  if (sectionId === 'quiz' && !quizInitialized) renderQuiz();
+  if (sectionId === 'leaderboard') renderLeaderboard();
+}
+
+// =====================================================
+// PHISHING
+// =====================================================
+
+function showPhishingResult(isPhishing) {
+  const result = document.getElementById('phishing-result');
+
+  if (!result) return;
+
+  if (isPhishing) {
+    result.innerHTML = `
+      <div class="alert show alert-success">
+        <strong>✅ Benar! Ini adalah phishing.</strong><br>
+        Email ini memakai domain mencurigakan, ancaman pemblokiran,
+        dan tekanan waktu. Jangan masukkan data pribadi melalui tautan tersebut.
+      </div>
+    `;
+
+    saveProgress('phishing', { score:10 });
+  } else {
+    result.innerHTML = `
+      <div class="alert show alert-danger">
+        <strong>❌ Jawaban belum tepat.</strong><br>
+        Email ini sebenarnya phishing. Perhatikan domain pengirim,
+        tautan, dan ancaman pemblokiran akun.
+      </div>
+    `;
   }
 }
 
-// ================= PHISHING =================
-function showPhishingResult() {
-  document.getElementById('phishing-result').innerHTML = `
-    <div class="alert show alert-danger">
-      <strong>🚨 Benar! Ini adalah simulasi phishing.</strong><br>
-      Email ini mencurigakan karena menggunakan domain tidak resmi,
-      ancaman pemblokiran, dan meminta pengguna membuka tautan.
-      Jangan pernah memasukkan data pribadi melalui tautan mencurigakan.
-    </div>`;
-  saveProgress('phishing', { score: 10 });
-}
+// =====================================================
+// PASSWORD
+// =====================================================
 
-// ================= PASSWORD =================
+let passwordTimer = null;
+
 function checkPassword() {
   const password = document.getElementById('password-input').value;
   const fill = document.getElementById('password-meter-fill');
@@ -560,14 +673,6 @@ function checkPassword() {
   if (/[^A-Za-z0-9]/.test(password)) score++;
   else suggestions.push('Tambahkan simbol.');
 
-  const levels = [
-    { text: 'Sangat lemah', color: '#d32f2f', width: '10%' },
-    { text: 'Lemah', color: '#ef6c00', width: '25%' },
-    { text: 'Cukup', color: '#f9a825', width: '50%' },
-    { text: 'Baik', color: '#7cb342', width: '75%' },
-    { text: 'Kuat', color: '#2e7d32', width: '100%' }
-  ];
-
   if (!password) {
     fill.style.width = '0';
     strength.textContent = 'Belum ada password.';
@@ -575,18 +680,40 @@ function checkPassword() {
     return;
   }
 
+  const levels = [
+    ['Sangat lemah','#d32f2f','10%'],
+    ['Lemah','#ef6c00','25%'],
+    ['Cukup','#f9a825','50%'],
+    ['Baik','#7cb342','75%'],
+    ['Kuat','#2e7d32','100%']
+  ];
+
   const level = Math.min(score, 4);
-  fill.style.width = levels[level].width;
-  fill.style.background = levels[level].color;
-  strength.textContent = 'Kekuatan: ' + levels[level].text;
+
+  strength.textContent = 'Kekuatan: ' + levels[level][0];
+  fill.style.background = levels[level][1];
+  fill.style.width = levels[level][2];
 
   feedback.className = 'alert show alert-info';
   feedback.innerHTML = suggestions.length
-    ? '<strong>Saran perbaikan:</strong><br>' + suggestions.join('<br>')
-    : 'Password memiliki kombinasi karakter yang baik. Tetap gunakan password unik.';
+    ? '<strong>Saran perbaikan:</strong><br>' +
+      suggestions.map(escapeHTML).join('<br>')
+    : 'Kombinasi karakter sudah baik. Gunakan password unik.';
+
+  // Password contoh hanya diperiksa di browser, tidak disimpan.
+  clearTimeout(passwordTimer);
+
+  if (score >= 4) {
+    passwordTimer = setTimeout(() => {
+      saveProgress('password', { bestScore:score });
+    }, 700);
+  }
 }
 
-// ================= HACKER SIMULATION =================
+// =====================================================
+// SIMULASI BRUTE FORCE
+// =====================================================
+
 let hackerInterval = null;
 let hackerAttempts = 0;
 let hackerStartTime = 0;
@@ -607,12 +734,12 @@ function startHackerSimulation() {
   hackerAttempts = 0;
   hackerStartTime = Date.now();
 
+  let current = 0;
+  const maxAttempts = Math.pow(10, target.length);
+
   terminal.textContent = '[SYSTEM] Memulai simulasi brute-force...\n';
   status.textContent = 'Status: Sedang berjalan';
   progress.style.width = '0%';
-
-  const maxAttempts = Math.pow(10, target.length);
-  let current = 0;
 
   hackerInterval = setInterval(() => {
     const guess = String(current).padStart(target.length, '0');
@@ -624,23 +751,23 @@ function startHackerSimulation() {
       clearInterval(hackerInterval);
       hackerInterval = null;
 
-      const elapsed = ((Date.now() - hackerStartTime) / 1000).toFixed(2);
-      terminal.textContent += '\n[FOUND] Password simulasi ditemukan: ' + guess;
-      terminal.textContent += '\n[INFO] Percobaan: ' + hackerAttempts;
-      terminal.textContent += '\n[INFO] Waktu: ' + elapsed + ' detik';
-      terminal.textContent += '\n[SAFE MODE] Simulasi selesai.';
+      const elapsed = Number(((Date.now() - hackerStartTime) / 1000).toFixed(2));
+
+      terminal.textContent +=
+        '\n[FOUND] Password ditemukan: ' + guess +
+        '\n[INFO] Percobaan: ' + hackerAttempts +
+        '\n[INFO] Waktu: ' + elapsed + ' detik' +
+        '\n[SAFE MODE] Simulasi selesai.';
 
       status.textContent = 'Status: Password simulasi ditemukan';
       progress.style.width = '100%';
 
-      saveProgress('hacker', { bestTime: Number(elapsed) });
+      saveProgress('hacker', { bestTime:elapsed });
       return;
     }
 
     current++;
-
-    const pct = Math.min(100, current / maxAttempts * 100);
-    progress.style.width = pct + '%';
+    progress.style.width = Math.min(100, current / maxAttempts * 100) + '%';
 
     if (current >= maxAttempts) {
       clearInterval(hackerInterval);
@@ -655,415 +782,248 @@ function startHackerSimulation() {
 }
 
 function stopHackerSimulation() {
-  if (hackerInterval) {
+  if (hackerInterval !== null) {
     clearInterval(hackerInterval);
     hackerInterval = null;
+    document.getElementById('hacker-status').textContent = 'Status: Dihentikan';
   }
-
-  const status = document.getElementById('hacker-status');
-  if (status) status.textContent = 'Status: Dihentikan';
 }
 
-// ================= OTP =================
+// =====================================================
+// OTP
+// =====================================================
+
 function showOtpResult(give) {
-  if (give) {
-    document.getElementById('otp-result').innerHTML = `
-      <div class="alert show alert-danger">
-        <strong>💀 Awas, kamu kena tipu!</strong><br>
-        Penipu yang mengaku "Pak Andi dari Bank Aman" sekarang
-        berhasil mengakses akunmu dan bisa menyalahgunakan informasi tersebut.<br>
-        <strong>Ingat:</strong> Bank resmi tidak pernah meminta kode OTP.
-      </div>`;
+  const result = document.getElementById('otp-result');
 
-    saveProgress('otp', {});
-  } else {
-    document.getElementById('otp-result').innerHTML = `
-      <div class="alert show alert-success">
-        <strong>🏅 Hebat, kamu selamat!</strong><br>
-        Kamu menolak memberikan OTP. Penipu tidak bisa menggunakan kode itu.<br>
-        <strong>Kode OTP adalah rahasia pribadi.</strong>
-      </div>`;
-
-    saveProgress('otp', {});
+  if (!result) {
+    console.error('Elemen otp-result tidak ditemukan.');
+    return;
   }
+
+  if (give === true) {
+    result.innerHTML = `
+      <div class="alert show alert-danger">
+        <strong>⚠️ Keputusan berbahaya!</strong><br>
+        Kamu memilih memberikan OTP kepada penelepon.
+        Penipu dapat menggunakan kode tersebut untuk mencoba mengambil alih akunmu.
+        <br><br>
+        <strong>Pelajaran:</strong> Jangan pernah memberikan OTP, PIN, atau password.
+      </div>
+    `;
+
+    // Jawaban salah tidak mendapatkan poin.
+    return;
+  }
+
+  result.innerHTML = `
+    <div class="alert show alert-success">
+      <strong>✅ Keputusan tepat! Kamu berhasil menghindari penipuan.</strong><br>
+      Menolak memberikan OTP adalah tindakan yang benar.
+      Tutup telepon mencurigakan dan hubungi bank melalui saluran resmi.
+      <br><br>
+      <strong>OTP adalah rahasia pribadi.</strong>
+    </div>
+  `;
+
+  saveProgress('otp', {});
 }
 
-// ================= QUIZ =================
+// =====================================================
+// KUIS
+// =====================================================
+
 const quizData = [
-  {
-    q: 'Email dari "bank" meminta kamu mengisi PIN dan password melalui link. Apa yang harus kamu lakukan?',
-    options: ['Isi saja karena dari bank', 'Klik link dan isi data', 'Jangan klik link — itu phishing, hubungi bank lewat nomor resmi', 'Balas emailnya'],
-    answer: 2,
-  },
-  {
-    q: 'Password mana yang paling kuat?',
-    options: ['123456', 'Budi2024', 'K#p@S4w1t!77', 'namadesa'],
-    answer: 2,
-  },
-  {
-    q: 'Seseorang menelepon mengaku dari bank dan meminta kode OTP. Sikap yang benar adalah...',
-    options: ['Beri tahu OTP-nya', 'Jangan berikan, matikan telepon', 'Minta nomor rekening dulu', 'Kirim OTP lewat WhatsApp'],
-    answer: 1,
-  },
-  {
-    q: 'Apa fungsi utama verifikasi dua langkah (2FA)?',
-    options: ['Membuat HP lebih cepat', 'Melindungi akun meski password bocor', 'Menghemat kuota internet', 'Meningkatkan sinyal'],
-    answer: 1,
-  },
-  {
-    q: 'Hacker menebak password dengan mencoba semua kemungkinan (brute-force). Password seperti apa yang paling sulit dibobol?',
-    options: ['Tanggal lahir', 'Nama anak', 'Kombinasi panjang: huruf besar + kecil + angka + simbol', 'Nomor HP'],
-    answer: 2,
-  },
-  {
-    q: 'Di mana tempat paling aman untuk melakukan transaksi perbankan online?',
-    options: ['Wi-Fi warung', 'Wi-Fi kafe umum', 'Data seluler di HP sendiri', 'Wi-Fi hotel gratis'],
-    answer: 2,
-  },
-  {
-    q: 'Apa tanda email phishing yang paling jelas?',
-    options: ['Menggunakan bahasa sopan', 'Meminta data pribadi & menekan dengan ancaman tenggat waktu', 'Berisi gambar produk', 'Ditulis dengan baik'],
-    answer: 1,
-  },
-  {
-    q: 'Kamu menerima pesan "Selamat! Kamu dapat Rp50 juta. Transfer biaya admin Rp200 ribu." Yang benar adalah...',
-    options: ['Transfer uangnya, siapa tahu benar', 'Itu penipuan, abaikan dan laporkan', 'Balas pesannya', 'Kirim data KTP'],
-    answer: 1,
-  },
-  {
-    q: 'Apa yang sebaiknya dilakukan jika akun media sosial kamu diretas?',
-    options: ['Buat akun baru saja', 'Ganti password, aktifkan 2FA, dan laporkan ke penyedia layanan', 'Tidak perlu apa-apa', 'Beri tahu semua teman untuk kirim uang'],
-    answer: 1,
-  },
-  {
-    q: 'Bagaimana cara mengamankan ponsel dari malware?',
-    options: ['Download aplikasi dari mana saja', 'Root/jailbreak HP', 'Download hanya dari toko resmi & rutin update', 'Matikan internet'],
-    answer: 2,
-  },
+{
+q:'Email dari bank meminta PIN dan password melalui link. Apa yang harus dilakukan?',
+options:['Isi saja karena dari bank','Klik link dan isi data','Jangan klik link dan hubungi bank melalui nomor resmi','Balas email'],
+answer:2
+},
+{
+q:'Password mana yang paling kuat?',
+options:['123456','Budi2024','K#p@S4w1t!77','namadesa'],
+answer:2
+},
+{
+q:'Seseorang mengaku dari bank dan meminta OTP. Sikap yang benar adalah...',
+options:['Berikan OTP','Jangan berikan dan tutup telepon','Minta nomor rekening','Kirim OTP lewat WhatsApp'],
+answer:1
+},
+{
+q:'Apa fungsi utama verifikasi dua langkah (2FA)?',
+options:['Membuat HP lebih cepat','Melindungi akun meski password bocor','Menghemat kuota','Meningkatkan sinyal'],
+answer:1
+},
+{
+q:'Password seperti apa yang paling sulit ditebak?',
+options:['Tanggal lahir','Nama anak','Kombinasi panjang dan unik','Nomor HP'],
+answer:2
+},
+{
+q:'Di mana tempat yang lebih aman untuk transaksi perbankan online?',
+options:['Wi-Fi warung','Wi-Fi kafe umum','Data seluler di HP sendiri','Wi-Fi hotel gratis'],
+answer:2
+},
+{
+q:'Apa tanda email phishing?',
+options:['Bahasa sopan','Meminta data pribadi dan menekan dengan ancaman','Berisi gambar produk','Ditulis dengan baik'],
+answer:1
+},
+{
+q:'Pesan menawarkan hadiah Rp50 juta tetapi meminta biaya admin. Apa yang benar?',
+options:['Transfer uang','Abaikan dan laporkan','Balas pesan','Kirim data KTP'],
+answer:1
+},
+{
+q:'Apa yang harus dilakukan jika akun media sosial diretas?',
+options:['Buat akun baru saja','Ganti password, aktifkan 2FA, dan laporkan','Tidak perlu apa-apa','Minta teman mengirim uang'],
+answer:1
+},
+{
+q:'Bagaimana cara mengamankan ponsel dari malware?',
+options:['Download aplikasi dari mana saja','Root HP','Unduh dari toko resmi dan rutin update','Matikan internet'],
+answer:2
+}
 ];
 
 let quizAnswered = 0;
 let quizCorrect = 0;
+let quizInitialized = false;
+let quizSaved = false;
 
 function renderQuiz() {
   const content = document.getElementById('quiz-content');
   content.innerHTML = '';
+
   quizAnswered = 0;
   quizCorrect = 0;
+  quizSaved = false;
+  quizInitialized = true;
+
   updateQuizScore();
 
   quizData.forEach((item, qi) => {
     const div = document.createElement('div');
-    div.style.cssText = 'margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid #e9edf3;';
-    div.innerHTML = `<h3 style="margin-bottom:0.75rem;">${qi + 1}. ${item.q}</h3>`;
+    div.style.cssText = 'margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #e9edf3';
 
-    const opts = document.createElement('div');
-    opts.className = 'quiz-options';
+    const heading = document.createElement('h3');
+    heading.textContent = (qi + 1) + '. ' + item.q;
+    div.appendChild(heading);
 
-    item.options.forEach((opt, oi) => {
-      const btn = document.createElement('button');
-      btn.className = 'quiz-option';
-      btn.textContent = String.fromCharCode(65 + oi) + '. ' + opt;
+    const options = document.createElement('div');
+    options.className = 'quiz-options';
 
-      btn.onclick = () => {
-        if (btn.disabled) return;
+    item.options.forEach((option, oi) => {
+      const button = document.createElement('button');
+      button.className = 'quiz-option';
+      button.textContent = String.fromCharCode(65 + oi) + '. ' + option;
 
-        const all = opts.querySelectorAll('.quiz-option');
-        all.forEach(b => b.disabled = true);
+      button.addEventListener('click', () => {
+        if (button.disabled) return;
 
-        if (oi === item.answer) {
-          btn.classList.add('correct');
+        const all = options.querySelectorAll('button');
+        all.forEach(btn => btn.disabled = true);
+
+        const correct = oi === item.answer;
+
+        if (correct) {
+          button.classList.add('correct');
           quizCorrect++;
         } else {
-          btn.classList.add('wrong');
+          button.classList.add('wrong');
           all[item.answer].classList.add('correct');
         }
 
         quizAnswered++;
         updateQuizScore();
 
-        const res = document.createElement('div');
-        res.className = 'alert show ' + (oi === item.answer ? 'alert-success' : 'alert-warning');
-        res.textContent = oi === item.answer
+        const feedback = document.createElement('div');
+        feedback.className = 'alert show ' + (correct ? 'alert-success' : 'alert-warning');
+        feedback.textContent = correct
           ? '✔ Benar!'
-          : '✘ Kurang tepat. Jawaban yang benar: ' + String.fromCharCode(65 + item.answer);
+          : '✘ Kurang tepat. Jawaban benar: ' + String.fromCharCode(65 + item.answer);
 
-        div.appendChild(res);
-      };
+        div.appendChild(feedback);
+      });
 
-      opts.appendChild(btn);
+      options.appendChild(button);
     });
 
-    div.appendChild(opts);
+    div.appendChild(options);
     content.appendChild(div);
   });
 }
 
 function updateQuizScore() {
-  const score = document.getElementById('quiz-score');
-  score.textContent = `Skor: ${quizCorrect}/${quizAnswered}`;
+  document.getElementById('quiz-score').textContent =
+    `Skor: ${quizCorrect}/${quizAnswered}`;
 
-  if (quizAnswered === quizData.length) {
-    const pct = Math.round(quizCorrect / quizData.length * 100);
-    let msg, cls;
+  if (quizAnswered !== quizData.length || quizSaved) return;
 
-    if (pct >= 90) {
-      msg = '🏆 Luar biasa! Kamu sangat paham keamanan digital!';
-      cls = 'alert-success';
-    } else if (pct >= 70) {
-      msg = '💪 Bagus! Sedikit lagi menuju sempurna.';
-      cls = 'alert-success';
-    } else if (pct >= 50) {
-      msg = '😐 Lumayan, tapi masih banyak yang perlu dipelajari.';
-      cls = 'alert-warning';
-    } else {
-      msg = '😢 Jangan menyerah! Baca kembali tips di atas, lalu coba lagi.';
-      cls = 'alert-danger';
-    }
+  quizSaved = true;
 
-    const res = document.getElementById('quiz-content');
-    let old = document.getElementById('quiz-final');
-    if (old) old.remove();
+  const percentage = Math.round(quizCorrect / quizData.length * 100);
 
-    const final = document.createElement('div');
-    final.id = 'quiz-final';
-    final.className = 'alert show ' + cls;
-    final.innerHTML = `<strong>Hasil Akhir: ${quizCorrect} dari ${quizData.length} benar (${pct}%)</strong><br>${msg}`;
+  let message = '';
+  let cls = '';
 
-    res.appendChild(final);
-
-    saveProgress('quiz', {
-      completed: true,
-      score: pct,
-      correct: quizCorrect,
-      pointsEarned: quizCorrect
-    });
-  }
-}
-
-// ================= SUPABASE PROGRESS TRACKING =================
-// Supabase Configuration
-// Menggunakan Publishable Key terbaru.
-// Jangan pernah menaruh Secret Key di frontend.
-
-const supabaseUrl = 'https://hrxclmxuybdjjxpglpwj.supabase.co';
-
-const supabasePublishableKey =
-  'sb_publishable_DNzxKYySuSxOWzmI9bgWKA_OX8tJcbF';
-
-// Initialize Supabase Client
-const supabaseClient = window.supabase
-  ? window.supabase.createClient(
-      supabaseUrl,
-      supabasePublishableKey
-    )
-  : null;
-
-if (supabaseClient) {
-  console.log('Supabase connected: Client initialized');
-} else {
-  console.error('Supabase library not loaded!');
-}
-
-// Progress tracking state
-let userProgress = {
-  userId: null,
-  totalQuizzesTaken: 0,
-  totalQuizzesCorrect: 0,
-
-  moduleProgress: {
-    phishing: { completed: false, score: 0 },
-    password: { completed: false, bestScore: 0 },
-    hacker: { completed: false, bestTime: null },
-    otp: { completed: false },
-    quiz: { completed: false, score: 0 },
-    tips: { completed: false }
-  },
-
-  points: 0,
-  earnedBadges: []
-};
-
-async function initUser() {
-  const existingId = localStorage.getItem('digital_security_user_id');
-
-  if (existingId) {
-    userProgress.userId = existingId;
+  if (percentage >= 90) {
+    message = '🏆 Luar biasa! Kamu sangat paham keamanan digital!';
+    cls = 'alert-success';
+  } else if (percentage >= 70) {
+    message = '💪 Bagus! Sedikit lagi menuju sempurna.';
+    cls = 'alert-success';
+  } else if (percentage >= 50) {
+    message = '😐 Lumayan, pelajari kembali materi.';
+    cls = 'alert-warning';
   } else {
-    userProgress.userId = 'desa-kapur-' + crypto.randomUUID();
-    localStorage.setItem('digital_security_user_id', userProgress.userId);
+    message = '😢 Jangan menyerah! Pelajari tips keamanan dan coba lagi.';
+    cls = 'alert-danger';
   }
+
+  const final = document.createElement('div');
+  final.id = 'quiz-final';
+  final.className = 'alert show ' + cls;
+
+  const title = document.createElement('strong');
+  title.textContent = `Hasil Akhir: ${quizCorrect} dari ${quizData.length} benar (${percentage}%)`;
+
+  final.appendChild(title);
+  final.appendChild(document.createElement('br'));
+  final.appendChild(document.createTextNode(message));
+
+  document.getElementById('quiz-content').appendChild(final);
+
+  saveProgress('quiz', {
+    completed:true,
+    score:percentage,
+    correct:quizCorrect
+  });
 }
 
-async function saveProgress(module, data = {}) {
-  if (module === 'quiz') {
-    userProgress.moduleProgress.quiz = {
-      completed: data.completed,
-      score: data.score
-    };
+// =====================================================
+// TIPS
+// =====================================================
 
-    userProgress.totalQuizzesTaken++;
-    userProgress.totalQuizzesCorrect += data.correct || 0;
-    userProgress.points += data.pointsEarned || 0;
-  } else if (module === 'phishing') {
-    userProgress.moduleProgress.phishing = {
-      completed: true,
-      score: data.score || 0
-    };
-    userProgress.points += 10;
-  } else if (module === 'password') {
-    userProgress.moduleProgress.password = {
-      completed: true,
-      bestScore: data.bestScore || 0
-    };
-    userProgress.points += 10;
-  } else if (module === 'hacker') {
-    userProgress.moduleProgress.hacker = {
-      completed: true,
-      bestTime: data.bestTime
-    };
-    userProgress.points += 10;
-  } else if (module === 'otp') {
-    userProgress.moduleProgress.otp = { completed: true };
-    userProgress.points += 10;
-  } else if (module === 'tips') {
-    userProgress.moduleProgress.tips = { completed: true };
-    userProgress.points += 5;
-  }
+async function completeTips() {
+  const button = document.getElementById('tips-complete-btn');
+  const result = document.getElementById('tips-result');
 
-  if (userProgress.points >= 50 && !userProgress.earnedBadges.includes('beginner')) {
-    userProgress.earnedBadges.push('beginner');
-    await awardBadge('beginner', 'Pelajar Awal');
-  }
+  await saveProgress('tips', {});
 
-  if (userProgress.points >= 150 && !userProgress.earnedBadges.includes('intermediate')) {
-    userProgress.earnedBadges.push('intermediate');
-    await awardBadge('intermediate', 'Penggemar Keamanan');
-  }
+  result.className = 'alert show alert-success';
+  result.textContent = '✅ Materi tips keamanan berhasil diselesaikan!';
 
-  if (userProgress.points >= 300 && !userProgress.earnedBadges.includes('expert')) {
-    userProgress.earnedBadges.push('expert');
-    await awardBadge('expert', 'Ahli Keamanan Digital');
-  }
-
-  saveToLocalStorage();
-
-  if (!supabaseClient || !userProgress.userId) {
-    displayProgressSummary();
-    return;
-  }
-
-  try {
-    const { error } = await supabaseClient
-      .from('user_progress')
-      .upsert({
-        user_id: userProgress.userId,
-        progress_data: userProgress,
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'user_id' });
-
-    if (error) throw error;
-
-    console.log('Progress saved to Supabase!');
-    displayProgressSummary();
-  } catch (err) {
-    console.error('Error saving progress:', err);
-    console.log('Progress tersimpan di localStorage sebagai cadangan.');
-  }
+  button.textContent = '✓ Materi Sudah Selesai';
+  button.disabled = true;
 }
 
-async function awardBadge(badgeType, badgeName) {
-  if (!supabaseClient || !userProgress.userId) return;
-
-  try {
-    const { error } = await supabaseClient
-      .from('earned_badges')
-      .insert({
-        user_id: userProgress.userId,
-        badge_type: badgeType,
-        badge_name: badgeName,
-        earned_at: new Date().toISOString()
-      });
-
-    if (error) throw error;
-
-    console.log('Badge awarded:', badgeName);
-  } catch (err) {
-    console.error('Error awarding badge:', err);
-  }
-}
-
-function saveToLocalStorage() {
-  localStorage.setItem(
-    'digital_security_progress',
-    JSON.stringify(userProgress)
-  );
-}
-
-function displayProgressSummary() {
-  let summary = document.getElementById('progress-summary');
-
-  if (!summary) {
-    summary = document.createElement('div');
-    summary.id = 'progress-summary';
-    summary.style.cssText =
-      'position:fixed;top:100px;right:15px;width:220px;z-index:90;';
-
-    const nav = document.querySelector('nav');
-    if (nav) nav.insertAdjacentElement('afterend', summary);
-  }
-
-  summary.innerHTML = `
-    <div class="alert show alert-info" style="box-shadow:0 2px 10px rgba(0,0,0,.1)">
-      <strong>📊 Progres Kamu</strong><br>
-      Poin: ${userProgress.points}<br>
-      Badge: ${userProgress.earnedBadges.length > 0
-        ? userProgress.earnedBadges.join(', ')
-        : 'Belum ada'}
-    </div>
-  `;
-}
-
-async function loadProgress() {
-  const stored = localStorage.getItem('digital_security_progress');
-
-  if (stored) {
-    try {
-      userProgress = JSON.parse(stored);
-    } catch (error) {
-      console.error('Data progres lokal tidak valid:', error);
-    }
-  }
-
-  if (supabaseClient && userProgress.userId) {
-    try {
-      const { data, error } = await supabaseClient
-        .from('user_progress')
-        .select('progress_data')
-        .eq('user_id', userProgress.userId)
-        .maybeSingle();
-
-      if (error) throw error;
-
-      if (data && data.progress_data) {
-        userProgress = data.progress_data;
-        saveToLocalStorage();
-      }
-    } catch (err) {
-      console.warn('Menggunakan penyimpanan lokal:', err.message);
-    }
-  }
-
-  displayProgressSummary();
-}
-
-// ================= WELCOME SCREEN =================
-let userName = '';
-let userRole = '';
+// =====================================================
+// WELCOME DAN LOGIN ADMIN
+// =====================================================
 
 function showWelcomeScreen() {
   document.getElementById('welcome-screen').style.display = 'flex';
-  document.getElementById('enter-btn').onclick = enterUser;
 }
 
 function enterUser() {
@@ -1078,37 +1038,38 @@ function enterUser() {
   userName = name;
   userRole = role;
 
-  localStorage.setItem('ds_user_name', name);
-  localStorage.setItem('ds_user_role', role);
-
   if (role === 'admin') {
-    showAdminModal();
-  } else {
-    hideWelcomeScreen();
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('admin-modal').style.display = 'flex';
+    return;
   }
-}
 
-function showAdminModal() {
-  document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('admin-modal').style.display = 'flex';
+  localStorage.setItem('ds_user_name', name);
+  localStorage.setItem('ds_user_role', 'user');
 
-  document.getElementById('admin-login-btn').onclick = checkAdminPassword;
-  document.getElementById('admin-cancel-btn').onclick = cancelAdmin;
+  userProgress.userName = name;
+  saveLocalProgress();
+
+  hideWelcomeScreen();
 }
 
 function checkAdminPassword() {
-  const pwd = document.getElementById('admin-password').value;
-  const adminPwd = 'desa-kapur-2024';
+  const password = document.getElementById('admin-password').value;
 
-  if (pwd === adminPwd) {
-    localStorage.setItem('ds_user_role', 'admin');
-    hideAdminModal();
-    hideWelcomeScreen();
-    updateNavForRole();
-  } else {
-    alert('Password salah! Coba lagi.');
+  // Password demo. Bukan autentikasi admin yang aman untuk produksi.
+  const adminPassword = 'desa-kapur-2024';
+
+  if (password !== adminPassword) {
+    alert('Password admin salah!');
     document.getElementById('admin-password').value = '';
+    return;
   }
+
+  localStorage.setItem('ds_user_name', userName);
+  localStorage.setItem('ds_user_role', 'admin');
+
+  hideAdminModal();
+  hideWelcomeScreen();
 }
 
 function cancelAdmin() {
@@ -1118,11 +1079,6 @@ function cancelAdmin() {
 
 function hideWelcomeScreen() {
   document.getElementById('welcome-screen').style.display = 'none';
-
-  if (userName) {
-    localStorage.setItem('ds_user_name', userName);
-  }
-
   updateNavForRole();
 }
 
@@ -1134,51 +1090,125 @@ function updateNavForRole() {
   userRole = localStorage.getItem('ds_user_role') || 'user';
   userName = localStorage.getItem('ds_user_name') || 'Warga';
 
-  const headerH1 = document.querySelector('header h1');
-
-  if (headerH1) {
-    headerH1.textContent = userRole === 'admin'
+  document.querySelector('header h1').textContent =
+    userRole === 'admin'
       ? '🔐 Admin Panel - Simulasi Keamanan Digital'
       : '🔐 Simulasi Keamanan Digital';
-  }
 
-  const welcomeText = document.querySelector('#home .card h2');
+  document.querySelector('#home .card h2').textContent =
+    `Selamat Datang, ${userName}! 👋`;
 
-  if (welcomeText) {
-    welcomeText.textContent = `Selamat Datang, ${userName}! 👋`;
-  }
-
-  const leaderboardNav = document.getElementById('nav-leaderboard');
-
-  if (leaderboardNav) {
-    leaderboardNav.style.display = userRole === 'admin' ? 'block' : 'none';
-  }
+  document.getElementById('nav-leaderboard').style.display =
+    userRole === 'admin' ? 'block' : 'none';
 
   showSection('home');
-  loadProgress();
+  displayProgressSummary();
 }
 
-function renderLeaderboard() {
+// =====================================================
+// ADMIN LEADERBOARD
+// =====================================================
+
+async function renderLeaderboard() {
   const content = document.getElementById('leaderboard-content');
 
-  if (!content) return;
+  if (userRole !== 'admin') {
+    content.innerHTML = '<div class="alert show alert-danger">Akses hanya untuk admin.</div>';
+    return;
+  }
 
-  content.innerHTML = `
-    <div class="grid-3">
-      <div class="stat"><strong>${userProgress.points}</strong>Total Poin</div>
-      <div class="stat"><strong>${userProgress.totalQuizzesTaken}</strong>Kuis Selesai</div>
-      <div class="stat"><strong>${userProgress.earnedBadges.length}</strong>Badge</div>
-    </div>
-    <h3 style="margin-top:1rem">Progres Materi</h3>
-    <ul style="padding-left:1.5rem">
-      ${Object.entries(userProgress.moduleProgress).map(([name, item]) =>
-        `<li>${name}: ${item.completed ? 'Selesai' : 'Belum selesai'}</li>`
-      ).join('')}
-    </ul>
-  `;
+  if (!supabaseClient) {
+    content.innerHTML = '<div class="alert show alert-danger">Supabase tidak tersedia.</div>';
+    return;
+  }
+
+  content.innerHTML = '<p>Memuat data peserta...</p>';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('user_progress')
+      .select('user_id, progress_data, updated_at')
+      .order('updated_at', { ascending:false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      content.innerHTML = `
+        <div class="alert show alert-warning">
+          Belum ada data peserta yang dapat ditampilkan.
+        </div>
+      `;
+      return;
+    }
+
+    const totalPoints = data.reduce(
+      (sum, row) => sum + (Number(row.progress_data?.points) || 0), 0
+    );
+
+    const totalQuizzes = data.reduce(
+      (sum, row) => sum + (Number(row.progress_data?.totalQuizzesTaken) || 0), 0
+    );
+
+    let html = `
+      <div class="grid-3">
+        <div class="stat"><strong>${data.length}</strong>Total Peserta</div>
+        <div class="stat"><strong>${totalPoints}</strong>Total Poin</div>
+        <div class="stat"><strong>${totalQuizzes}</strong>Kuis Dikerjakan</div>
+      </div>
+      <h3 style="margin-top:1.5rem">Daftar Progres Peserta</h3>
+      <div class="table-wrap">
+      <table>
+      <thead><tr>
+        <th>Nama</th><th>Poin</th><th>Kuis</th><th>Materi</th><th>Terakhir Update</th>
+      </tr></thead><tbody>
+    `;
+
+    data.forEach(row => {
+      const p = row.progress_data || {};
+      const modules = p.moduleProgress || {};
+      const completed = Object.values(modules).filter(x => x?.completed).length;
+
+      html += `
+        <tr>
+          <td>${escapeHTML(p.userName || row.user_id)}</td>
+          <td>${Number(p.points) || 0}</td>
+          <td>${Number(p.totalQuizzesTaken) || 0}</td>
+          <td>${completed}/6</td>
+          <td>${row.updated_at ? new Date(row.updated_at).toLocaleString('id-ID') : '-'}</td>
+        </tr>
+      `;
+    });
+
+    html += '</tbody></table></div>';
+    html += '<button class="btn btn-primary" onclick="renderLeaderboard()">🔄 Muat Ulang Data</button>';
+
+    content.innerHTML = html;
+
+  } catch (error) {
+    console.error('Leaderboard error:', error);
+
+    content.innerHTML = `
+      <div class="alert show alert-danger">
+        <strong>Gagal mengambil data peserta.</strong><br>
+        ${escapeHTML(error.message)}<br><br>
+        Periksa tabel user_progress, kolom, izin akses, dan RLS Supabase.
+      </div>
+      <button class="btn btn-primary" onclick="renderLeaderboard()">Coba Lagi</button>
+    `;
+  }
 }
 
-window.addEventListener('load', async function() {
+// =====================================================
+// INISIALISASI
+// =====================================================
+
+window.addEventListener('DOMContentLoaded', async () => {
+  console.log('Website simulasi keamanan digital dimulai.');
+
+  document.getElementById('enter-btn').addEventListener('click', enterUser);
+  document.getElementById('admin-login-btn').addEventListener('click', checkAdminPassword);
+  document.getElementById('admin-cancel-btn').addEventListener('click', cancelAdmin);
+
   await initUser();
   await loadProgress();
 
@@ -1188,13 +1218,20 @@ window.addEventListener('load', async function() {
   if (savedName && savedRole) {
     userName = savedName;
     userRole = savedRole;
+    userProgress.userName = savedName;
     updateNavForRole();
+
+    if (userProgress.moduleProgress.tips.completed) {
+      const button = document.getElementById('tips-complete-btn');
+      button.disabled = true;
+      button.textContent = '✓ Materi Sudah Selesai';
+    }
   } else {
     showWelcomeScreen();
   }
-});
 
-// ================= END =================
+  console.log('Inisialisasi selesai.');
+});
 </script>
 
 </body>
