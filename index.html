@@ -18,71 +18,296 @@
   --text:#1a1a2e;
   --muted:#5f6b7a;
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:white;padding:2.5rem 1.5rem;text-align:center}
+
+body{
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6
+}
+
+header{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  color:white;
+  padding:2.5rem 1.5rem;
+  text-align:center
+}
+
 header h1{font-size:2rem;margin-bottom:.5rem}
 header p{opacity:.9;font-size:1.05rem;max-width:800px;margin:auto}
-.badge{display:inline-block;background:#ffffff33;border-radius:999px;padding:.25rem 1rem;font-size:.85rem;margin-bottom:1rem}
-nav{background:white;box-shadow:0 2px 10px #0001;position:sticky;top:0;z-index:100;overflow-x:auto}
-nav ul{display:flex;justify-content:center;gap:.25rem;list-style:none;padding:.75rem 1rem;min-width:max-content}
-nav button{background:transparent;border:0;padding:.6rem 1.2rem;border-radius:8px;font-size:.95rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap}
+
+.badge{
+  display:inline-block;
+  background:#ffffff33;
+  border-radius:999px;
+  padding:.25rem 1rem;
+  font-size:.85rem;
+  margin-bottom:1rem
+}
+
+nav{
+  background:white;
+  box-shadow:0 2px 10px #0001;
+  position:sticky;
+  top:0;
+  z-index:100;
+  overflow-x:auto
+}
+
+nav ul{
+  display:flex;
+  justify-content:center;
+  gap:.25rem;
+  list-style:none;
+  padding:.75rem 1rem;
+  min-width:max-content
+}
+
+nav button{
+  background:transparent;
+  border:0;
+  padding:.6rem 1.2rem;
+  border-radius:8px;
+  font-size:.95rem;
+  font-weight:600;
+  color:var(--muted);
+  cursor:pointer;
+  white-space:nowrap
+}
+
 nav button:hover{background:#eef3fb;color:var(--primary)}
 nav button.active{background:var(--primary);color:white}
-main{max-width:1100px;margin:2rem auto;padding:0 1.5rem}
-.section{display:none}.section.active{display:block}
-.card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 2px 12px #0000000f}
+
+main{
+  max-width:1100px;
+  margin:2rem auto;
+  padding:0 1.5rem
+}
+
+.section{display:none}
+.section.active{display:block}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:1.5rem;
+  margin-bottom:1.5rem;
+  box-shadow:0 2px 12px #0000000f
+}
+
 .card h2{color:var(--primary-dark);margin-bottom:1rem}
 .card h3{margin-bottom:.75rem}
-.btn{display:inline-block;border:0;border-radius:8px;padding:.75rem 1.5rem;font-size:1rem;font-weight:600;cursor:pointer;margin:.25rem}
+
+.btn{
+  display:inline-block;
+  border:0;
+  border-radius:8px;
+  padding:.75rem 1.5rem;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  margin:.25rem
+}
+
 .btn-primary{background:var(--primary);color:white}
 .btn-primary:hover{background:var(--primary-dark)}
 .btn-danger{background:var(--danger);color:white}
 .btn-success{background:var(--success);color:white}
 .btn-warning{background:var(--warning);color:white}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.alert{padding:1rem;border-radius:8px;margin:1rem 0;display:none}
+
+.alert{
+  padding:1rem;
+  border-radius:8px;
+  margin:1rem 0;
+  display:none
+}
+
 .alert.show{display:block}
 .alert-success{background:#e8f5e9;color:#1b5e20;border-left:4px solid var(--success)}
 .alert-danger{background:#ffebee;color:#b71c1c;border-left:4px solid var(--danger)}
 .alert-warning{background:#fff8e1;color:#e65100;border-left:4px solid var(--warning)}
 .alert-info{background:#e3f2fd;color:#0d47a1;border-left:4px solid #1976d2}
+
 .quiz-options{display:grid;gap:.5rem;margin-top:1rem}
-.quiz-option{padding:.85rem 1rem;border:2px solid #dce3ec;border-radius:8px;background:white;text-align:left;cursor:pointer;font-size:.95rem}
-.quiz-option:hover:not(:disabled){border-color:var(--primary);background:#f5f9ff}
+
+.quiz-option{
+  padding:.85rem 1rem;
+  border:2px solid #dce3ec;
+  border-radius:8px;
+  background:white;
+  text-align:left;
+  cursor:pointer;
+  font-size:.95rem
+}
+
+.quiz-option:hover:not(:disabled){
+  border-color:var(--primary);
+  background:#f5f9ff
+}
+
 .quiz-option.correct{border-color:var(--success);background:#e8f5e9}
 .quiz-option.wrong{border-color:var(--danger);background:#ffebee}
-input,select{width:100%;padding:.75rem;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;margin:.4rem 0 1rem}
+
+input,select{
+  width:100%;
+  padding:.75rem;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:1rem;
+  margin:.4rem 0 1rem
+}
+
 label{font-weight:600;display:block}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-.stat{text-align:center;background:#f5f8fc;border-radius:10px;padding:1rem}
-.stat strong{display:block;font-size:1.8rem;color:var(--primary)}
-.progress-bar{height:12px;background:#e0e7ef;border-radius:99px;overflow:hidden;margin:.75rem 0}
-.progress-fill{height:100%;background:linear-gradient(90deg,#1a73e8,#42a5f5);transition:width .3s}
-.phishing-email{background:white;border:1px solid #ddd;border-radius:8px;padding:1.25rem;margin:1rem 0}
-.email-header{border-bottom:1px solid #eee;padding-bottom:.75rem;margin-bottom:.75rem}
-.email-link{display:inline-block;color:#1565c0;text-decoration:underline;cursor:pointer}
-.password-meter{height:8px;border-radius:99px;background:#eee;margin:.5rem 0;overflow:hidden}
-.password-meter-fill{height:100%;width:0;transition:all .3s}
-.otp-boxes{display:flex;gap:.5rem;justify-content:center;margin:1rem 0}
-.otp-boxes input{width:48px;height:55px;text-align:center;font-size:1.4rem;font-weight:bold}
-.hacker-terminal{background:#111827;color:#4ade80;padding:1.25rem;border-radius:8px;font-family:monospace;min-height:180px;white-space:pre-wrap;overflow-wrap:anywhere;margin:1rem 0}
-.tip-item{padding:1rem;border-bottom:1px solid #e9edf3}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1rem
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem
+}
+
+.stat{
+  text-align:center;
+  background:#f5f8fc;
+  border-radius:10px;
+  padding:1rem
+}
+
+.stat strong{
+  display:block;
+  font-size:1.8rem;
+  color:var(--primary)
+}
+
+.progress-bar{
+  height:12px;
+  background:#e0e7ef;
+  border-radius:99px;
+  overflow:hidden;
+  margin:.75rem 0
+}
+
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,#1a73e8,#42a5f5);
+  transition:width .3s
+}
+
+.phishing-email{
+  background:white;
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:1.25rem;
+  margin:1rem 0
+}
+
+.email-header{
+  border-bottom:1px solid #eee;
+  padding-bottom:.75rem;
+  margin-bottom:.75rem
+}
+
+.email-link{
+  display:inline-block;
+  color:#1565c0;
+  text-decoration:underline;
+  cursor:pointer
+}
+
+.password-meter{
+  height:8px;
+  border-radius:99px;
+  background:#eee;
+  margin:.5rem 0;
+  overflow:hidden
+}
+
+.password-meter-fill{
+  height:100%;
+  width:0;
+  transition:all .3s
+}
+
+.otp-boxes{
+  display:flex;
+  gap:.5rem;
+  justify-content:center;
+  margin:1rem 0
+}
+
+.otp-boxes input{
+  width:48px;
+  height:55px;
+  text-align:center;
+  font-size:1.4rem;
+  font-weight:bold
+}
+
+.hacker-terminal{
+  background:#111827;
+  color:#4ade80;
+  padding:1.25rem;
+  border-radius:8px;
+  font-family:monospace;
+  min-height:180px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  margin:1rem 0
+}
+
+.tip-item{
+  padding:1rem;
+  border-bottom:1px solid #e9edf3
+}
+
 .tip-item:last-child{border-bottom:none}
-.modal{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
-.modal-content{background:white;padding:2rem;border-radius:14px;width:100%;max-width:420px}
-footer{text-align:center;padding:2rem;color:var(--muted);font-size:.9rem}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000a;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:1rem
+}
+
+.modal-content{
+  background:white;
+  padding:2rem;
+  border-radius:14px;
+  width:100%;
+  max-width:420px
+}
+
+footer{
+  text-align:center;
+  padding:2rem;
+  color:var(--muted);
+  font-size:.9rem
+}
+
 table{width:100%;border-collapse:collapse}
 th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 .table-wrap{overflow-x:auto}
+
 @media(max-width:700px){
- header h1{font-size:1.5rem}
- main{padding:0 1rem}
- .grid-2,.grid-3{grid-template-columns:1fr}
- nav ul{justify-content:flex-start}
- nav button{padding:.55rem .8rem;font-size:.85rem}
- .card{padding:1rem}
+  header h1{font-size:1.5rem}
+  main{padding:0 1rem}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  nav ul{justify-content:flex-start}
+  nav button{padding:.55rem .8rem;font-size:.85rem}
+  .card{padding:1rem}
+  .modal-content{padding:1.5rem}
 }
 </style>
 </head>
@@ -111,6 +336,7 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <main>
 
 <section id="home" class="section active">
+
 <div class="card">
 <h2>Selamat Datang! 👋</h2>
 <p>Website ini membantu masyarakat memahami ancaman di dunia digital melalui praktik langsung.</p>
@@ -124,12 +350,36 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 
 <div class="card">
 <h2>Materi Pembelajaran</h2>
-<div class="tip-item"><strong>🎣 Phishing</strong><p>Kenali pesan dan situs palsu yang mencoba mencuri informasi pribadi.</p></div>
-<div class="tip-item"><strong>🔑 Password</strong><p>Pelajari cara membuat kata sandi yang kuat dan aman.</p></div>
-<div class="tip-item"><strong>💻 Simulasi Hacker</strong><p>Pahami brute-force melalui simulasi edukatif.</p></div>
-<div class="tip-item"><strong>📱 OTP</strong><p>Pelajari mengapa kode OTP tidak boleh dibagikan.</p></div>
-<div class="tip-item"><strong>📝 Kuis</strong><p>Uji pemahaman keamanan digital.</p></div>
-<div class="tip-item"><strong>🛡️ Tips</strong><p>Terapkan kebiasaan aman saat menggunakan internet.</p></div>
+
+<div class="tip-item">
+<strong>🎣 Phishing</strong>
+<p>Kenali pesan dan situs palsu yang mencoba mencuri informasi pribadi.</p>
+</div>
+
+<div class="tip-item">
+<strong>🔑 Password</strong>
+<p>Pelajari cara membuat kata sandi yang kuat dan aman.</p>
+</div>
+
+<div class="tip-item">
+<strong>💻 Simulasi Hacker</strong>
+<p>Pahami brute-force melalui simulasi edukatif.</p>
+</div>
+
+<div class="tip-item">
+<strong>📱 OTP</strong>
+<p>Pelajari mengapa kode OTP tidak boleh dibagikan.</p>
+</div>
+
+<div class="tip-item">
+<strong>📝 Kuis</strong>
+<p>Uji pemahaman keamanan digital.</p>
+</div>
+
+<div class="tip-item">
+<strong>🛡️ Tips</strong>
+<p>Terapkan kebiasaan aman saat menggunakan internet.</p>
+</div>
 </div>
 
 <div class="card">
@@ -137,9 +387,11 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <p>Pilih materi dari menu navigasi di atas.</p>
 <button class="btn btn-primary" onclick="showSection('phishing')">Mulai Simulasi →</button>
 </div>
+
 </section>
 
 <section id="phishing" class="section">
+
 <div class="card">
 <h2>🎣 Simulasi Phishing</h2>
 <p>Phishing adalah upaya penipuan untuk memperoleh informasi sensitif dengan menyamar sebagai pihak tepercaya.</p>
@@ -147,20 +399,29 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 
 <div class="card">
 <h3>Contoh Email Mencurigakan</h3>
+
 <div class="phishing-email">
 <div class="email-header">
 <p><strong>Dari:</strong> Bank Aman &lt;security@bank-aman-login.example&gt;</p>
 <p><strong>Subjek:</strong> ⚠️ Akun Anda Akan Diblokir!</p>
 </div>
+
 <p>Yth. Nasabah,</p>
 <p>Kami mendeteksi aktivitas tidak biasa pada rekening Anda. Untuk menghindari pemblokiran, segera verifikasi akun melalui tautan berikut:</p>
-<p style="margin:1rem 0"><span class="email-link" onclick="showPhishingResult(true)">https://bank-aman-login.example/verifikasi</span></p>
+
+<p style="margin:1rem 0">
+<span class="email-link" onclick="showPhishingResult(true)">https://bank-aman-login.example/verifikasi</span>
+</p>
+
 <p>Jika tidak melakukan verifikasi dalam 24 jam, akun Anda akan diblokir permanen.</p>
 <p>Hormat kami,<br>Tim Keamanan Bank Aman</p>
 </div>
+
 <p><strong>Menurut kamu, apakah email ini aman?</strong></p>
+
 <button class="btn btn-danger" onclick="showPhishingResult(true)">🚨 Ini Phishing!</button>
 <button class="btn btn-success" onclick="showPhishingResult(false)">Email Aman</button>
+
 <div id="phishing-result" class="alert"></div>
 </div>
 
@@ -174,15 +435,22 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <li>Menawarkan hadiah tidak masuk akal.</li>
 </ul>
 </div>
+
 </section>
 
 <section id="password" class="section">
+
 <div class="card">
 <h2>🔑 Simulasi Kekuatan Password</h2>
 <p>Masukkan contoh password. Jangan gunakan password asli kamu.</p>
+
 <label for="password-input">Contoh Password</label>
-<input type="text" id="password-input" placeholder="Masukkan contoh password..." oninput="checkPassword()">
-<div class="password-meter"><div id="password-meter-fill" class="password-meter-fill"></div></div>
+<input type="password" id="password-input" placeholder="Masukkan contoh password..." oninput="checkPassword()">
+
+<div class="password-meter">
+<div id="password-meter-fill" class="password-meter-fill"></div>
+</div>
+
 <p id="password-strength">Belum ada password.</p>
 <div id="password-feedback" class="alert"></div>
 </div>
@@ -198,19 +466,28 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <li>Aktifkan autentikasi dua faktor.</li>
 </ul>
 </div>
+
 </section>
 
 <section id="hacker" class="section">
+
 <div class="card">
 <h2>💻 Simulasi Serangan Brute-Force</h2>
 <p>Simulasi ini berjalan hanya di browser dan tidak menyerang sistem sungguhan.</p>
+
 <label for="target-password">Password simulasi (maksimal 4 angka)</label>
-<input id="target-password" type="text" maxlength="4" placeholder="Contoh: 1234">
+<input id="target-password" type="text" inputmode="numeric" maxlength="4" placeholder="Contoh: 1234">
+
 <button class="btn btn-danger" onclick="startHackerSimulation()">▶ Mulai Simulasi</button>
 <button class="btn btn-warning" onclick="stopHackerSimulation()">■ Hentikan</button>
+
 <div class="hacker-terminal" id="hacker-terminal">[SYSTEM] Menunggu simulasi...
 [SAFE MODE] Simulasi lokal, tidak terhubung ke sistem luar.</div>
-<div class="progress-bar"><div id="hacker-progress" class="progress-fill" style="width:0%"></div></div>
+
+<div class="progress-bar">
+<div id="hacker-progress" class="progress-fill" style="width:0%"></div>
+</div>
+
 <p id="hacker-status">Status: Menunggu</p>
 </div>
 
@@ -223,9 +500,11 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <li>Gunakan sistem deteksi aktivitas mencurigakan.</li>
 </ul>
 </div>
+
 </section>
 
 <section id="otp" class="section">
+
 <div class="card">
 <h2>📱 Simulasi Penipuan OTP</h2>
 <p>OTP (One-Time Password) adalah kode sekali pakai untuk memverifikasi identitas. Jangan pernah membagikannya kepada orang lain.</p>
@@ -233,42 +512,61 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 
 <div class="card">
 <h3>Situasi Simulasi</h3>
+
 <div class="phishing-email">
 <p><strong>📞 Penelepon:</strong></p>
 <p>"Halo, saya Pak Andi dari Bank Aman. Kami mendeteksi masalah pada akun Anda. Mohon berikan kode OTP yang baru saja masuk agar akun bisa kami amankan."</p>
 </div>
+
 <p><strong>Apa yang akan kamu lakukan?</strong></p>
+
 <button class="btn btn-danger" onclick="showOtpResult(true)">Berikan kode OTP</button>
 <button class="btn btn-success" onclick="showOtpResult(false)">Tolak memberikan OTP</button>
+
 <div id="otp-result" class="alert"></div>
 </div>
 
 <div class="card">
 <h3>Contoh Kode OTP</h3>
 <p>Kode di bawah hanya contoh untuk pembelajaran. Jangan masukkan kode OTP sungguhan.</p>
+
 <div class="otp-boxes">
-<input value="4" readonly><input value="8" readonly><input value="2" readonly>
-<input value="9" readonly><input value="1" readonly><input value="6" readonly>
+<input value="4" readonly>
+<input value="8" readonly>
+<input value="2" readonly>
+<input value="9" readonly>
+<input value="1" readonly>
+<input value="6" readonly>
 </div>
-<div class="alert show alert-warning">⚠️ Kode OTP bersifat rahasia. Petugas bank tidak akan meminta kode OTP kamu.</div>
+
+<div class="alert show alert-warning">
+⚠️ Kode OTP bersifat rahasia. Petugas bank tidak akan meminta kode OTP kamu.
 </div>
+</div>
+
 </section>
 
 <section id="quiz" class="section">
+
 <div class="card">
 <h2>📝 Kuis Keamanan Digital</h2>
 <p>Jawab pertanyaan berikut untuk menguji pemahamanmu.</p>
 <h3 id="quiz-score">Skor: 0/0</h3>
 </div>
+
 <div class="card" id="quiz-content"></div>
+
 <div class="card">
 <button class="btn btn-primary" onclick="renderQuiz()">🔄 Ulangi Kuis</button>
 </div>
+
 </section>
 
 <section id="tips" class="section">
+
 <div class="card">
 <h2>🛡️ Tips Aman Berinternet</h2>
+
 <div class="tip-item"><strong>1. Jaga Password</strong><p>Gunakan password unik dan panjang untuk setiap akun.</p></div>
 <div class="tip-item"><strong>2. Waspada Link</strong><p>Jangan sembarangan membuka tautan dari pesan tidak dikenal.</p></div>
 <div class="tip-item"><strong>3. Aktifkan 2FA</strong><p>Gunakan verifikasi dua langkah.</p></div>
@@ -279,17 +577,21 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <div class="tip-item"><strong>8. Backup Data</strong><p>Simpan cadangan data penting di tempat aman.</p></div>
 <div class="tip-item"><strong>9. Periksa Izin Aplikasi</strong><p>Berikan izin hanya jika diperlukan.</p></div>
 <div class="tip-item"><strong>10. Laporkan Penipuan</strong><p>Simpan bukti dan laporkan penipuan.</p></div>
+
 <button id="tips-complete-btn" class="btn btn-success" onclick="completeTips()">✓ Tandai Materi Tips Selesai</button>
 <div id="tips-result" class="alert"></div>
 </div>
+
 </section>
 
 <section id="leaderboard" class="section">
+
 <div class="card">
 <h2>🏆 Admin Panel</h2>
 <p>Daftar progres peserta yang tersimpan di Supabase.</p>
 <div id="leaderboard-content"></div>
 </div>
+
 </section>
 
 </main>
@@ -298,13 +600,16 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <div class="modal-content">
 <h2>Selamat Datang! 👋</h2>
 <p>Masukkan nama untuk memulai pembelajaran.</p>
+
 <label for="user-name">Nama</label>
-<input id="user-name" type="text" placeholder="Nama kamu">
+<input id="user-name" type="text" maxlength="60" placeholder="Nama kamu">
+
 <label for="user-role">Masuk sebagai</label>
 <select id="user-role">
 <option value="user">Peserta</option>
 <option value="admin">Admin</option>
 </select>
+
 <button id="enter-btn" class="btn btn-primary" style="width:100%">Mulai</button>
 </div>
 </div>
@@ -313,8 +618,10 @@ th,td{text-align:left;padding:10px;border-bottom:1px solid #eee}
 <div class="modal-content">
 <h2>🔐 Login Admin</h2>
 <p>Masukkan password admin.</p>
+
 <label for="admin-password">Password</label>
 <input id="admin-password" type="password" placeholder="Password admin">
+
 <button id="admin-login-btn" class="btn btn-primary">Login</button>
 <button id="admin-cancel-btn" class="btn btn-warning">Batal</button>
 </div>
@@ -350,34 +657,36 @@ let userName = '';
 let userRole = 'user';
 
 let userProgress = {
-  userId: null,
-  userName: '',
-  totalQuizzesTaken: 0,
-  totalQuizzesCorrect: 0,
-  moduleProgress: {
-    phishing: { completed:false, score:0 },
-    password: { completed:false, bestScore:0 },
-    hacker: { completed:false, bestTime:null },
-    otp: { completed:false },
-    quiz: { completed:false, score:0 },
-    tips: { completed:false }
+  userId:null,
+  userName:'',
+  totalQuizzesTaken:0,
+  totalQuizzesCorrect:0,
+
+  moduleProgress:{
+    phishing:{completed:false,score:0},
+    password:{completed:false,bestScore:0},
+    hacker:{completed:false,bestTime:null},
+    otp:{completed:false},
+    quiz:{completed:false,score:0},
+    tips:{completed:false}
   },
-  points: 0,
-  earnedBadges: []
+
+  points:0,
+  earnedBadges:[]
 };
 
 let saveQueue = Promise.resolve();
 
-function makeUserId() {
-  return 'desa-kapur-' + (
-    crypto.randomUUID
-      ? crypto.randomUUID()
-      : Date.now() + '-' + Math.random().toString(36).slice(2)
-  );
+function makeUserId(){
+  const id = window.crypto?.randomUUID
+    ? window.crypto.randomUUID()
+    : Date.now() + '-' + Math.random().toString(36).slice(2);
+
+  return 'desa-kapur-' + id;
 }
 
-function escapeHTML(value) {
-  return String(value ?? '').replace(/[&<>"']/g, c => ({
+function escapeHTML(value){
+  return String(value ?? '').replace(/[&<>"']/g,c=>({
     '&':'&amp;',
     '<':'&lt;',
     '>':'&gt;',
@@ -386,51 +695,62 @@ function escapeHTML(value) {
   })[c]);
 }
 
-async function initUser() {
+async function initUser(){
   let id = localStorage.getItem(USER_ID_KEY);
 
-  if (!id) {
+  if(!id){
     id = makeUserId();
-    localStorage.setItem(USER_ID_KEY, id);
+    localStorage.setItem(USER_ID_KEY,id);
   }
 
   userProgress.userId = id;
 }
 
-function loadLocalProgress() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(PROGRESS_KEY) || 'null');
+function loadLocalProgress(){
+  try{
+    const saved = JSON.parse(
+      localStorage.getItem(PROGRESS_KEY) || 'null'
+    );
 
-    if (!saved) return;
+    if(!saved) return;
 
     userProgress = {
       ...userProgress,
       ...saved,
-      userId: userProgress.userId,
-      moduleProgress: {
+      userId:userProgress.userId,
+
+      moduleProgress:{
         ...userProgress.moduleProgress,
         ...(saved.moduleProgress || {})
       },
-      earnedBadges: Array.isArray(saved.earnedBadges)
-        ? saved.earnedBadges : []
+
+      earnedBadges:Array.isArray(saved.earnedBadges)
+        ? saved.earnedBadges
+        : []
     };
-  } catch (error) {
-    console.error('Data lokal tidak valid:', error);
+
+  }catch(error){
+    console.error('Data lokal tidak valid:',error);
   }
 }
 
-function saveLocalProgress() {
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(userProgress));
+function saveLocalProgress(){
+  localStorage.setItem(
+    PROGRESS_KEY,
+    JSON.stringify(userProgress)
+  );
 }
 
-function displayProgressSummary() {
+function displayProgressSummary(){
   let box = document.getElementById('progress-summary');
 
-  if (!box) {
+  if(!box){
     box = document.createElement('div');
     box.id = 'progress-summary';
+
     box.style.cssText =
       'position:fixed;right:12px;bottom:12px;width:210px;max-width:calc(100vw - 24px);z-index:90;font-size:13px';
+
     document.body.appendChild(box);
   }
 
@@ -444,138 +764,173 @@ function displayProgressSummary() {
 }
 
 // =====================================================
-// BADGE DAN PENYIMPANAN
+// BADGE
 // =====================================================
 
-function updateBadges() {
+function updateBadges(){
   const rules = [
-    { name:'beginner', points:50 },
-    { name:'intermediate', points:150 },
-    { name:'expert', points:300 }
+    {name:'beginner',points:50},
+    {name:'intermediate',points:150},
+    {name:'expert',points:300}
   ];
 
-  rules.forEach(rule => {
-    if (
+  rules.forEach(rule=>{
+    if(
       userProgress.points >= rule.points &&
       !userProgress.earnedBadges.includes(rule.name)
-    ) {
+    ){
       userProgress.earnedBadges.push(rule.name);
     }
   });
 }
 
-async function saveProgressToSupabase() {
-  if (!supabaseClient || !userProgress.userId) {
+// =====================================================
+// SUPABASE
+// =====================================================
+
+async function saveProgressToSupabase(){
+  if(!supabaseClient || !userProgress.userId){
     console.warn('Supabase tidak tersedia. Data tersimpan lokal.');
     return;
   }
 
-  const { error } = await supabaseClient
+  const {error} = await supabaseClient
     .from('user_progress')
     .upsert({
-      user_id: userProgress.userId,
-      progress_data: userProgress,
-      updated_at: new Date().toISOString()
-    }, { onConflict:'user_id' });
+      user_id:userProgress.userId,
+      progress_data:userProgress,
+      updated_at:new Date().toISOString()
+    },{
+      onConflict:'user_id'
+    });
 
-  if (error) throw error;
+  if(error) throw error;
 }
 
-async function saveProgress(module, data = {}) {
+async function saveProgress(module,data={}){
   const item = userProgress.moduleProgress[module];
 
-  if (!item) return;
+  if(!item) return;
 
   let points = 0;
 
-  if (module === 'phishing') {
-    if (!item.completed) points = 10;
+  if(module === 'phishing'){
+    if(!item.completed) points = 10;
+
     item.completed = true;
-    item.score = Math.max(item.score || 0, data.score || 10);
+    item.score = Math.max(
+      item.score || 0,
+      data.score || 10
+    );
   }
 
-  if (module === 'password') {
-    if (!item.completed) points = 10;
+  if(module === 'password'){
+    if(!item.completed) points = 10;
+
     item.completed = true;
-    item.bestScore = Math.max(item.bestScore || 0, data.bestScore || 0);
+    item.bestScore = Math.max(
+      item.bestScore || 0,
+      data.bestScore || 0
+    );
   }
 
-  if (module === 'hacker') {
-    if (!item.completed) points = 10;
+  if(module === 'hacker'){
+    if(!item.completed) points = 10;
+
     item.completed = true;
 
-    if (item.bestTime === null || data.bestTime < item.bestTime) {
+    if(
+      item.bestTime === null ||
+      item.bestTime === undefined ||
+      data.bestTime < item.bestTime
+    ){
       item.bestTime = data.bestTime;
     }
   }
 
-  if (module === 'otp') {
-    if (!item.completed) points = 10;
+  if(module === 'otp'){
+    if(!item.completed) points = 10;
     item.completed = true;
   }
 
-  if (module === 'tips') {
-    if (!item.completed) points = 5;
+  if(module === 'tips'){
+    if(!item.completed) points = 5;
     item.completed = true;
   }
 
-  if (module === 'quiz') {
+  if(module === 'quiz'){
     userProgress.totalQuizzesTaken++;
     userProgress.totalQuizzesCorrect += data.correct || 0;
+
     points = data.correct || 0;
+
     item.completed = true;
-    item.score = data.score || 0;
+    item.score = Math.max(
+      item.score || 0,
+      data.score || 0
+    );
   }
 
   userProgress.points += points;
+
   updateBadges();
   saveLocalProgress();
   displayProgressSummary();
 
-  saveQueue = saveQueue.then(async () => {
-    try {
+  saveQueue = saveQueue.then(async()=>{
+    try{
       await saveProgressToSupabase();
       console.log('Progres berhasil disimpan.');
-    } catch (error) {
-      console.error('Gagal menyimpan progres Supabase:', error.message);
+    }catch(error){
+      console.error(
+        'Gagal menyimpan progres Supabase:',
+        error.message
+      );
     }
   });
 
   return saveQueue;
 }
 
-async function loadProgress() {
+async function loadProgress(){
   loadLocalProgress();
 
-  if (supabaseClient && userProgress.userId) {
-    try {
-      const { data, error } = await supabaseClient
+  if(supabaseClient && userProgress.userId){
+    try{
+      const {data,error} = await supabaseClient
         .from('user_progress')
         .select('progress_data')
-        .eq('user_id', userProgress.userId)
+        .eq('user_id',userProgress.userId)
         .maybeSingle();
 
-      if (error) throw error;
+      if(error) throw error;
 
-      if (data?.progress_data) {
+      if(data?.progress_data){
         const remote = data.progress_data;
 
         userProgress = {
           ...userProgress,
           ...remote,
-          userId: userProgress.userId,
-          moduleProgress: {
+          userId:userProgress.userId,
+
+          moduleProgress:{
             ...userProgress.moduleProgress,
             ...(remote.moduleProgress || {})
           },
-          earnedBadges: Array.isArray(remote.earnedBadges)
-            ? remote.earnedBadges : []
+
+          earnedBadges:Array.isArray(remote.earnedBadges)
+            ? remote.earnedBadges
+            : []
         };
 
         saveLocalProgress();
       }
-    } catch (error) {
-      console.warn('Gagal memuat data Supabase:', error.message);
+
+    }catch(error){
+      console.warn(
+        'Gagal memuat data Supabase:',
+        error.message
+      );
     }
   }
 
@@ -586,59 +941,70 @@ async function loadProgress() {
 // NAVIGASI
 // =====================================================
 
-function showSection(sectionId, button) {
-  document.querySelectorAll('.section').forEach(section => {
+function showSection(sectionId,button){
+  document.querySelectorAll('.section').forEach(section=>{
     section.classList.remove('active');
   });
 
   const target = document.getElementById(sectionId);
-  if (!target) return;
+
+  if(!target) return;
 
   target.classList.add('active');
 
-  document.querySelectorAll('nav button').forEach(btn => {
+  document.querySelectorAll('nav button').forEach(btn=>{
     btn.classList.remove('active');
   });
 
-  if (button) {
+  if(button){
     button.classList.add('active');
-  } else {
+  }else{
     const navButton = [...document.querySelectorAll('nav button')]
-      .find(btn => btn.getAttribute('onclick')?.includes("'" + sectionId + "'"));
+      .find(btn=>
+        btn.getAttribute('onclick')?.includes("'" + sectionId + "'")
+      );
 
-    if (navButton) navButton.classList.add('active');
+    if(navButton) navButton.classList.add('active');
   }
 
-  if (sectionId === 'quiz' && !quizInitialized) renderQuiz();
-  if (sectionId === 'leaderboard') renderLeaderboard();
+  if(sectionId === 'quiz' && !quizInitialized){
+    renderQuiz();
+  }
+
+  if(sectionId === 'leaderboard'){
+    renderLeaderboard();
+  }
+
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // =====================================================
 // PHISHING
 // =====================================================
 
-function showPhishingResult(isPhishing) {
+function showPhishingResult(isPhishing){
   const result = document.getElementById('phishing-result');
 
-  if (!result) return;
+  if(!result) return;
 
-  if (isPhishing) {
+  if(isPhishing){
+    result.className = 'alert show alert-success';
+
     result.innerHTML = `
-      <div class="alert show alert-success">
-        <strong>✅ Benar! Ini adalah phishing.</strong><br>
-        Email ini memakai domain mencurigakan, ancaman pemblokiran,
-        dan tekanan waktu. Jangan masukkan data pribadi melalui tautan tersebut.
-      </div>
+      <strong>✅ Benar! Ini adalah phishing.</strong><br>
+      Email ini memakai domain mencurigakan, ancaman pemblokiran,
+      dan tekanan waktu. Jangan masukkan data pribadi melalui tautan tersebut.
     `;
 
-    saveProgress('phishing', { score:10 });
-  } else {
+    saveProgress('phishing',{score:10});
+
+  }else{
+    result.className = 'alert show alert-danger';
+
     result.innerHTML = `
-      <div class="alert show alert-danger">
-        <strong>❌ Jawaban belum tepat.</strong><br>
-        Email ini sebenarnya phishing. Perhatikan domain pengirim,
-        tautan, dan ancaman pemblokiran akun.
-      </div>
+      <strong>❌ Jawaban belum tepat.</strong><br>
+      Email ini sebenarnya phishing. Perhatikan domain pengirim,
+      tautan, dan ancaman pemblokiran akun.
     `;
   }
 }
@@ -649,8 +1015,9 @@ function showPhishingResult(isPhishing) {
 
 let passwordTimer = null;
 
-function checkPassword() {
+function checkPassword(){
   const password = document.getElementById('password-input').value;
+
   const fill = document.getElementById('password-meter-fill');
   const strength = document.getElementById('password-strength');
   const feedback = document.getElementById('password-feedback');
@@ -658,25 +1025,27 @@ function checkPassword() {
   let score = 0;
   const suggestions = [];
 
-  if (password.length >= 12) score++;
+  if(password.length >= 12) score++;
   else suggestions.push('Gunakan minimal 12 karakter.');
 
-  if (/[a-z]/.test(password)) score++;
+  if(/[a-z]/.test(password)) score++;
   else suggestions.push('Tambahkan huruf kecil.');
 
-  if (/[A-Z]/.test(password)) score++;
+  if(/[A-Z]/.test(password)) score++;
   else suggestions.push('Tambahkan huruf besar.');
 
-  if (/[0-9]/.test(password)) score++;
+  if(/[0-9]/.test(password)) score++;
   else suggestions.push('Tambahkan angka.');
 
-  if (/[^A-Za-z0-9]/.test(password)) score++;
+  if(/[^A-Za-z0-9]/.test(password)) score++;
   else suggestions.push('Tambahkan simbol.');
 
-  if (!password) {
+  if(!password){
     fill.style.width = '0';
     strength.textContent = 'Belum ada password.';
     feedback.className = 'alert';
+
+    clearTimeout(passwordTimer);
     return;
   }
 
@@ -688,25 +1057,27 @@ function checkPassword() {
     ['Kuat','#2e7d32','100%']
   ];
 
-  const level = Math.min(score, 4);
+  const level = Math.min(score,4);
 
   strength.textContent = 'Kekuatan: ' + levels[level][0];
+
   fill.style.background = levels[level][1];
   fill.style.width = levels[level][2];
 
   feedback.className = 'alert show alert-info';
+
   feedback.innerHTML = suggestions.length
     ? '<strong>Saran perbaikan:</strong><br>' +
       suggestions.map(escapeHTML).join('<br>')
     : 'Kombinasi karakter sudah baik. Gunakan password unik.';
 
-  // Password contoh hanya diperiksa di browser, tidak disimpan.
+  // Password tidak pernah dikirim atau disimpan.
   clearTimeout(passwordTimer);
 
-  if (score >= 4) {
-    passwordTimer = setTimeout(() => {
-      saveProgress('password', { bestScore:score });
-    }, 700);
+  if(score >= 4){
+    passwordTimer = setTimeout(()=>{
+      saveProgress('password',{bestScore:score});
+    },700);
   }
 }
 
@@ -718,15 +1089,18 @@ let hackerInterval = null;
 let hackerAttempts = 0;
 let hackerStartTime = 0;
 
-function startHackerSimulation() {
+function startHackerSimulation(){
   stopHackerSimulation();
 
-  const target = document.getElementById('target-password').value.trim();
+  const target = document
+    .getElementById('target-password')
+    .value.trim();
+
   const terminal = document.getElementById('hacker-terminal');
   const status = document.getElementById('hacker-status');
   const progress = document.getElementById('hacker-progress');
 
-  if (!/^\d{1,4}$/.test(target)) {
+  if(!/^\d{1,4}$/.test(target)){
     alert('Masukkan password simulasi berupa 1 sampai 4 angka.');
     return;
   }
@@ -735,23 +1109,29 @@ function startHackerSimulation() {
   hackerStartTime = Date.now();
 
   let current = 0;
-  const maxAttempts = Math.pow(10, target.length);
+  const maxAttempts = Math.pow(10,target.length);
 
-  terminal.textContent = '[SYSTEM] Memulai simulasi brute-force...\n';
+  terminal.textContent =
+    '[SYSTEM] Memulai simulasi brute-force...\n';
+
   status.textContent = 'Status: Sedang berjalan';
   progress.style.width = '0%';
 
-  hackerInterval = setInterval(() => {
-    const guess = String(current).padStart(target.length, '0');
+  hackerInterval = setInterval(()=>{
+    const guess = String(current).padStart(target.length,'0');
+
     hackerAttempts++;
 
-    terminal.textContent += '[ATTEMPT] Mencoba: ' + guess + '\n';
+    terminal.textContent +=
+      '[ATTEMPT] Mencoba: ' + guess + '\n';
 
-    if (guess === target) {
+    if(guess === target){
       clearInterval(hackerInterval);
       hackerInterval = null;
 
-      const elapsed = Number(((Date.now() - hackerStartTime) / 1000).toFixed(2));
+      const elapsed = Number(
+        ((Date.now()-hackerStartTime)/1000).toFixed(2)
+      );
 
       terminal.textContent +=
         '\n[FOUND] Password ditemukan: ' + guess +
@@ -759,33 +1139,43 @@ function startHackerSimulation() {
         '\n[INFO] Waktu: ' + elapsed + ' detik' +
         '\n[SAFE MODE] Simulasi selesai.';
 
-      status.textContent = 'Status: Password simulasi ditemukan';
+      status.textContent =
+        'Status: Password simulasi ditemukan';
+
       progress.style.width = '100%';
 
-      saveProgress('hacker', { bestTime:elapsed });
+      saveProgress('hacker',{bestTime:elapsed});
+
       return;
     }
 
     current++;
-    progress.style.width = Math.min(100, current / maxAttempts * 100) + '%';
 
-    if (current >= maxAttempts) {
+    progress.style.width =
+      Math.min(100,current/maxAttempts*100) + '%';
+
+    if(current >= maxAttempts){
       clearInterval(hackerInterval);
       hackerInterval = null;
+
       status.textContent = 'Status: Selesai';
     }
 
-    if (terminal.textContent.length > 5000) {
-      terminal.textContent = terminal.textContent.slice(-3500);
+    if(terminal.textContent.length > 5000){
+      terminal.textContent =
+        terminal.textContent.slice(-3500);
     }
-  }, 20);
+
+  },20);
 }
 
-function stopHackerSimulation() {
-  if (hackerInterval !== null) {
+function stopHackerSimulation(){
+  if(hackerInterval !== null){
     clearInterval(hackerInterval);
     hackerInterval = null;
-    document.getElementById('hacker-status').textContent = 'Status: Dihentikan';
+
+    document.getElementById('hacker-status').textContent =
+      'Status: Dihentikan';
   }
 }
 
@@ -793,40 +1183,39 @@ function stopHackerSimulation() {
 // OTP
 // =====================================================
 
-function showOtpResult(give) {
+function showOtpResult(give){
   const result = document.getElementById('otp-result');
 
-  if (!result) {
+  if(!result){
     console.error('Elemen otp-result tidak ditemukan.');
     return;
   }
 
-  if (give === true) {
+  if(give === true){
+    result.className = 'alert show alert-danger';
+
     result.innerHTML = `
-      <div class="alert show alert-danger">
-        <strong>⚠️ Keputusan berbahaya!</strong><br>
-        Kamu memilih memberikan OTP kepada penelepon.
-        Penipu dapat menggunakan kode tersebut untuk mencoba mengambil alih akunmu.
-        <br><br>
-        <strong>Pelajaran:</strong> Jangan pernah memberikan OTP, PIN, atau password.
-      </div>
+      <strong>⚠️ Keputusan berbahaya!</strong><br>
+      Kamu memilih memberikan OTP kepada penelepon.
+      Penipu dapat menggunakan kode tersebut untuk mencoba mengambil alih akunmu.
+      <br><br>
+      <strong>Pelajaran:</strong> Jangan pernah memberikan OTP, PIN, atau password.
     `;
 
-    // Jawaban salah tidak mendapatkan poin.
     return;
   }
 
+  result.className = 'alert show alert-success';
+
   result.innerHTML = `
-    <div class="alert show alert-success">
-      <strong>✅ Keputusan tepat! Kamu berhasil menghindari penipuan.</strong><br>
-      Menolak memberikan OTP adalah tindakan yang benar.
-      Tutup telepon mencurigakan dan hubungi bank melalui saluran resmi.
-      <br><br>
-      <strong>OTP adalah rahasia pribadi.</strong>
-    </div>
+    <strong>✅ Keputusan tepat! Kamu berhasil menghindari penipuan.</strong><br>
+    Menolak memberikan OTP adalah tindakan yang benar.
+    Tutup telepon mencurigakan dan hubungi bank melalui saluran resmi.
+    <br><br>
+    <strong>OTP adalah rahasia pribadi.</strong>
   `;
 
-  saveProgress('otp', {});
+  saveProgress('otp',{});
 }
 
 // =====================================================
@@ -836,52 +1225,102 @@ function showOtpResult(give) {
 const quizData = [
 {
 q:'Email dari bank meminta PIN dan password melalui link. Apa yang harus dilakukan?',
-options:['Isi saja karena dari bank','Klik link dan isi data','Jangan klik link dan hubungi bank melalui nomor resmi','Balas email'],
+options:[
+'Isi saja karena dari bank',
+'Klik link dan isi data',
+'Jangan klik link dan hubungi bank melalui nomor resmi',
+'Balas email'
+],
 answer:2
 },
 {
 q:'Password mana yang paling kuat?',
-options:['123456','Budi2024','K#p@S4w1t!77','namadesa'],
+options:[
+'123456',
+'Budi2024',
+'K#p@S4w1t!77',
+'namadesa'
+],
 answer:2
 },
 {
 q:'Seseorang mengaku dari bank dan meminta OTP. Sikap yang benar adalah...',
-options:['Berikan OTP','Jangan berikan dan tutup telepon','Minta nomor rekening','Kirim OTP lewat WhatsApp'],
+options:[
+'Berikan OTP',
+'Jangan berikan dan tutup telepon',
+'Minta nomor rekening',
+'Kirim OTP lewat WhatsApp'
+],
 answer:1
 },
 {
 q:'Apa fungsi utama verifikasi dua langkah (2FA)?',
-options:['Membuat HP lebih cepat','Melindungi akun meski password bocor','Menghemat kuota','Meningkatkan sinyal'],
+options:[
+'Membuat HP lebih cepat',
+'Melindungi akun meski password bocor',
+'Menghemat kuota',
+'Meningkatkan sinyal'
+],
 answer:1
 },
 {
 q:'Password seperti apa yang paling sulit ditebak?',
-options:['Tanggal lahir','Nama anak','Kombinasi panjang dan unik','Nomor HP'],
+options:[
+'Tanggal lahir',
+'Nama anak',
+'Kombinasi panjang dan unik',
+'Nomor HP'
+],
 answer:2
 },
 {
 q:'Di mana tempat yang lebih aman untuk transaksi perbankan online?',
-options:['Wi-Fi warung','Wi-Fi kafe umum','Data seluler di HP sendiri','Wi-Fi hotel gratis'],
+options:[
+'Wi-Fi warung',
+'Wi-Fi kafe umum',
+'Data seluler di HP sendiri',
+'Wi-Fi hotel gratis'
+],
 answer:2
 },
 {
 q:'Apa tanda email phishing?',
-options:['Bahasa sopan','Meminta data pribadi dan menekan dengan ancaman','Berisi gambar produk','Ditulis dengan baik'],
+options:[
+'Bahasa sopan',
+'Meminta data pribadi dan menekan dengan ancaman',
+'Berisi gambar produk',
+'Ditulis dengan baik'
+],
 answer:1
 },
 {
 q:'Pesan menawarkan hadiah Rp50 juta tetapi meminta biaya admin. Apa yang benar?',
-options:['Transfer uang','Abaikan dan laporkan','Balas pesan','Kirim data KTP'],
+options:[
+'Transfer uang',
+'Abaikan dan laporkan',
+'Balas pesan',
+'Kirim data KTP'
+],
 answer:1
 },
 {
 q:'Apa yang harus dilakukan jika akun media sosial diretas?',
-options:['Buat akun baru saja','Ganti password, aktifkan 2FA, dan laporkan','Tidak perlu apa-apa','Minta teman mengirim uang'],
+options:[
+'Buat akun baru saja',
+'Ganti password, aktifkan 2FA, dan laporkan',
+'Tidak perlu apa-apa',
+'Minta teman mengirim uang'
+],
 answer:1
 },
 {
 q:'Bagaimana cara mengamankan ponsel dari malware?',
-options:['Download aplikasi dari mana saja','Root HP','Unduh dari toko resmi dan rutin update','Matikan internet'],
+options:[
+'Download aplikasi dari mana saja',
+'Root HP',
+'Unduh dari toko resmi dan rutin update',
+'Matikan internet'
+],
 answer:2
 }
 ];
@@ -891,8 +1330,9 @@ let quizCorrect = 0;
 let quizInitialized = false;
 let quizSaved = false;
 
-function renderQuiz() {
+function renderQuiz(){
   const content = document.getElementById('quiz-content');
+
   content.innerHTML = '';
 
   quizAnswered = 0;
@@ -902,46 +1342,61 @@ function renderQuiz() {
 
   updateQuizScore();
 
-  quizData.forEach((item, qi) => {
+  quizData.forEach((item,qi)=>{
     const div = document.createElement('div');
-    div.style.cssText = 'margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #e9edf3';
+
+    div.style.cssText =
+      'margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid #e9edf3';
 
     const heading = document.createElement('h3');
-    heading.textContent = (qi + 1) + '. ' + item.q;
+
+    heading.textContent = (qi+1) + '. ' + item.q;
+
     div.appendChild(heading);
 
     const options = document.createElement('div');
+
     options.className = 'quiz-options';
 
-    item.options.forEach((option, oi) => {
+    item.options.forEach((option,oi)=>{
       const button = document.createElement('button');
-      button.className = 'quiz-option';
-      button.textContent = String.fromCharCode(65 + oi) + '. ' + option;
 
-      button.addEventListener('click', () => {
-        if (button.disabled) return;
+      button.className = 'quiz-option';
+
+      button.textContent =
+        String.fromCharCode(65+oi) + '. ' + option;
+
+      button.addEventListener('click',()=>{
+        if(button.disabled) return;
 
         const all = options.querySelectorAll('button');
-        all.forEach(btn => btn.disabled = true);
+
+        all.forEach(btn=>btn.disabled=true);
 
         const correct = oi === item.answer;
 
-        if (correct) {
+        if(correct){
           button.classList.add('correct');
           quizCorrect++;
-        } else {
+        }else{
           button.classList.add('wrong');
           all[item.answer].classList.add('correct');
         }
 
         quizAnswered++;
+
         updateQuizScore();
 
         const feedback = document.createElement('div');
-        feedback.className = 'alert show ' + (correct ? 'alert-success' : 'alert-warning');
+
+        feedback.className =
+          'alert show ' +
+          (correct ? 'alert-success' : 'alert-warning');
+
         feedback.textContent = correct
           ? '✔ Benar!'
-          : '✘ Kurang tepat. Jawaban benar: ' + String.fromCharCode(65 + item.answer);
+          : '✘ Kurang tepat. Jawaban benar: ' +
+            String.fromCharCode(65+item.answer);
 
         div.appendChild(feedback);
       });
@@ -954,39 +1409,47 @@ function renderQuiz() {
   });
 }
 
-function updateQuizScore() {
+function updateQuizScore(){
   document.getElementById('quiz-score').textContent =
     `Skor: ${quizCorrect}/${quizAnswered}`;
 
-  if (quizAnswered !== quizData.length || quizSaved) return;
+  if(
+    quizAnswered !== quizData.length ||
+    quizSaved
+  ) return;
 
   quizSaved = true;
 
-  const percentage = Math.round(quizCorrect / quizData.length * 100);
+  const percentage = Math.round(
+    quizCorrect/quizData.length*100
+  );
 
   let message = '';
   let cls = '';
 
-  if (percentage >= 90) {
+  if(percentage >= 90){
     message = '🏆 Luar biasa! Kamu sangat paham keamanan digital!';
     cls = 'alert-success';
-  } else if (percentage >= 70) {
+  }else if(percentage >= 70){
     message = '💪 Bagus! Sedikit lagi menuju sempurna.';
     cls = 'alert-success';
-  } else if (percentage >= 50) {
+  }else if(percentage >= 50){
     message = '😐 Lumayan, pelajari kembali materi.';
     cls = 'alert-warning';
-  } else {
+  }else{
     message = '😢 Jangan menyerah! Pelajari tips keamanan dan coba lagi.';
     cls = 'alert-danger';
   }
 
   const final = document.createElement('div');
+
   final.id = 'quiz-final';
   final.className = 'alert show ' + cls;
 
   const title = document.createElement('strong');
-  title.textContent = `Hasil Akhir: ${quizCorrect} dari ${quizData.length} benar (${percentage}%)`;
+
+  title.textContent =
+    `Hasil Akhir: ${quizCorrect} dari ${quizData.length} benar (${percentage}%)`;
 
   final.appendChild(title);
   final.appendChild(document.createElement('br'));
@@ -994,7 +1457,7 @@ function updateQuizScore() {
 
   document.getElementById('quiz-content').appendChild(final);
 
-  saveProgress('quiz', {
+  saveProgress('quiz',{
     completed:true,
     score:percentage,
     correct:quizCorrect
@@ -1005,14 +1468,24 @@ function updateQuizScore() {
 // TIPS
 // =====================================================
 
-async function completeTips() {
+async function completeTips(){
   const button = document.getElementById('tips-complete-btn');
   const result = document.getElementById('tips-result');
 
-  await saveProgress('tips', {});
+  if(userProgress.moduleProgress.tips.completed){
+    result.className = 'alert show alert-success';
+    result.textContent = 'Materi tips sudah pernah diselesaikan.';
+    button.disabled = true;
+    button.textContent = '✓ Materi Sudah Selesai';
+    return;
+  }
+
+  await saveProgress('tips',{});
 
   result.className = 'alert show alert-success';
-  result.textContent = '✅ Materi tips keamanan berhasil diselesaikan!';
+
+  result.textContent =
+    '✅ Materi tips keamanan berhasil diselesaikan!';
 
   button.textContent = '✓ Materi Sudah Selesai';
   button.disabled = true;
@@ -1022,15 +1495,15 @@ async function completeTips() {
 // WELCOME DAN LOGIN ADMIN
 // =====================================================
 
-function showWelcomeScreen() {
+function showWelcomeScreen(){
   document.getElementById('welcome-screen').style.display = 'flex';
 }
 
-function enterUser() {
+function enterUser(){
   const name = document.getElementById('user-name').value.trim();
   const role = document.getElementById('user-role').value;
 
-  if (!name) {
+  if(!name){
     alert('Silakan masukkan nama Anda!');
     return;
   }
@@ -1038,55 +1511,63 @@ function enterUser() {
   userName = name;
   userRole = role;
 
-  if (role === 'admin') {
+  if(role === 'admin'){
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('admin-modal').style.display = 'flex';
     return;
   }
 
-  localStorage.setItem('ds_user_name', name);
-  localStorage.setItem('ds_user_role', 'user');
+  localStorage.setItem('ds_user_name',name);
+  localStorage.setItem('ds_user_role','user');
 
   userProgress.userName = name;
+
   saveLocalProgress();
 
   hideWelcomeScreen();
 }
 
-function checkAdminPassword() {
-  const password = document.getElementById('admin-password').value;
+function checkAdminPassword(){
+  const password =
+    document.getElementById('admin-password').value;
 
   // Password demo. Bukan autentikasi admin yang aman untuk produksi.
   const adminPassword = 'desa-kapur-2024';
 
-  if (password !== adminPassword) {
+  if(password !== adminPassword){
     alert('Password admin salah!');
+
     document.getElementById('admin-password').value = '';
+
     return;
   }
 
-  localStorage.setItem('ds_user_name', userName);
-  localStorage.setItem('ds_user_role', 'admin');
+  localStorage.setItem('ds_user_name',userName);
+  localStorage.setItem('ds_user_role','admin');
+
+  document.getElementById('admin-password').value = '';
 
   hideAdminModal();
   hideWelcomeScreen();
 }
 
-function cancelAdmin() {
+function cancelAdmin(){
   document.getElementById('admin-modal').style.display = 'none';
   document.getElementById('welcome-screen').style.display = 'flex';
+
+  document.getElementById('admin-password').value = '';
 }
 
-function hideWelcomeScreen() {
+function hideWelcomeScreen(){
   document.getElementById('welcome-screen').style.display = 'none';
   updateNavForRole();
 }
 
-function hideAdminModal() {
+function hideAdminModal(){
   document.getElementById('admin-modal').style.display = 'none';
 }
 
-function updateNavForRole() {
+function updateNavForRole(){
   userRole = localStorage.getItem('ds_user_role') || 'user';
   userName = localStorage.getItem('ds_user_name') || 'Warga';
 
@@ -1102,71 +1583,115 @@ function updateNavForRole() {
     userRole === 'admin' ? 'block' : 'none';
 
   showSection('home');
+
   displayProgressSummary();
+
+  const tipsCompleted =
+    userProgress.moduleProgress.tips.completed;
+
+  if(tipsCompleted){
+    const button = document.getElementById('tips-complete-btn');
+
+    button.disabled = true;
+    button.textContent = '✓ Materi Sudah Selesai';
+  }
 }
 
 // =====================================================
 // ADMIN LEADERBOARD
 // =====================================================
 
-async function renderLeaderboard() {
+async function renderLeaderboard(){
   const content = document.getElementById('leaderboard-content');
 
-  if (userRole !== 'admin') {
-    content.innerHTML = '<div class="alert show alert-danger">Akses hanya untuk admin.</div>';
+  if(userRole !== 'admin'){
+    content.innerHTML =
+      '<div class="alert show alert-danger">Akses hanya untuk admin.</div>';
+
     return;
   }
 
-  if (!supabaseClient) {
-    content.innerHTML = '<div class="alert show alert-danger">Supabase tidak tersedia.</div>';
+  if(!supabaseClient){
+    content.innerHTML =
+      '<div class="alert show alert-danger">Supabase tidak tersedia.</div>';
+
     return;
   }
 
   content.innerHTML = '<p>Memuat data peserta...</p>';
 
-  try {
-    const { data, error } = await supabaseClient
+  try{
+    const {data,error} = await supabaseClient
       .from('user_progress')
       .select('user_id, progress_data, updated_at')
-      .order('updated_at', { ascending:false });
+      .order('updated_at',{ascending:false});
 
-    if (error) throw error;
+    if(error) throw error;
 
-    if (!data || data.length === 0) {
+    if(!data || data.length === 0){
       content.innerHTML = `
         <div class="alert show alert-warning">
           Belum ada data peserta yang dapat ditampilkan.
         </div>
       `;
+
       return;
     }
 
     const totalPoints = data.reduce(
-      (sum, row) => sum + (Number(row.progress_data?.points) || 0), 0
+      (sum,row)=>
+        sum + (Number(row.progress_data?.points) || 0),
+      0
     );
 
     const totalQuizzes = data.reduce(
-      (sum, row) => sum + (Number(row.progress_data?.totalQuizzesTaken) || 0), 0
+      (sum,row)=>
+        sum + (Number(row.progress_data?.totalQuizzesTaken) || 0),
+      0
     );
 
     let html = `
       <div class="grid-3">
-        <div class="stat"><strong>${data.length}</strong>Total Peserta</div>
-        <div class="stat"><strong>${totalPoints}</strong>Total Poin</div>
-        <div class="stat"><strong>${totalQuizzes}</strong>Kuis Dikerjakan</div>
+        <div class="stat">
+          <strong>${data.length}</strong>
+          Total Peserta
+        </div>
+
+        <div class="stat">
+          <strong>${totalPoints}</strong>
+          Total Poin
+        </div>
+
+        <div class="stat">
+          <strong>${totalQuizzes}</strong>
+          Kuis Dikerjakan
+        </div>
       </div>
-      <h3 style="margin-top:1.5rem">Daftar Progres Peserta</h3>
+
+      <h3 style="margin-top:1.5rem">
+        Daftar Progres Peserta
+      </h3>
+
       <div class="table-wrap">
       <table>
-      <thead><tr>
-        <th>Nama</th><th>Poin</th><th>Kuis</th><th>Materi</th><th>Terakhir Update</th>
-      </tr></thead><tbody>
+      <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Poin</th>
+        <th>Kuis</th>
+        <th>Materi</th>
+        <th>Terakhir Update</th>
+      </tr>
+      </thead>
+      <tbody>
     `;
 
-    data.forEach(row => {
+    data.forEach(row=>{
       const p = row.progress_data || {};
       const modules = p.moduleProgress || {};
-      const completed = Object.values(modules).filter(x => x?.completed).length;
+
+      const completed = Object.values(modules)
+        .filter(x=>x?.completed).length;
 
       html += `
         <tr>
@@ -1174,18 +1699,33 @@ async function renderLeaderboard() {
           <td>${Number(p.points) || 0}</td>
           <td>${Number(p.totalQuizzesTaken) || 0}</td>
           <td>${completed}/6</td>
-          <td>${row.updated_at ? new Date(row.updated_at).toLocaleString('id-ID') : '-'}</td>
+          <td>
+            ${
+              row.updated_at
+                ? escapeHTML(
+                    new Date(row.updated_at).toLocaleString('id-ID')
+                  )
+                : '-'
+            }
+          </td>
         </tr>
       `;
     });
 
-    html += '</tbody></table></div>';
-    html += '<button class="btn btn-primary" onclick="renderLeaderboard()">🔄 Muat Ulang Data</button>';
+    html += `
+      </tbody>
+      </table>
+      </div>
+
+      <button class="btn btn-primary" onclick="renderLeaderboard()">
+        🔄 Muat Ulang Data
+      </button>
+    `;
 
     content.innerHTML = html;
 
-  } catch (error) {
-    console.error('Leaderboard error:', error);
+  }catch(error){
+    console.error('Leaderboard error:',error);
 
     content.innerHTML = `
       <div class="alert show alert-danger">
@@ -1193,7 +1733,10 @@ async function renderLeaderboard() {
         ${escapeHTML(error.message)}<br><br>
         Periksa tabel user_progress, kolom, izin akses, dan RLS Supabase.
       </div>
-      <button class="btn btn-primary" onclick="renderLeaderboard()">Coba Lagi</button>
+
+      <button class="btn btn-primary" onclick="renderLeaderboard()">
+        Coba Lagi
+      </button>
     `;
   }
 }
@@ -1202,12 +1745,31 @@ async function renderLeaderboard() {
 // INISIALISASI
 // =====================================================
 
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('DOMContentLoaded',async()=>{
   console.log('Website simulasi keamanan digital dimulai.');
 
-  document.getElementById('enter-btn').addEventListener('click', enterUser);
-  document.getElementById('admin-login-btn').addEventListener('click', checkAdminPassword);
-  document.getElementById('admin-cancel-btn').addEventListener('click', cancelAdmin);
+  document.getElementById('enter-btn')
+    .addEventListener('click',enterUser);
+
+  document.getElementById('admin-login-btn')
+    .addEventListener('click',checkAdminPassword);
+
+  document.getElementById('admin-cancel-btn')
+    .addEventListener('click',cancelAdmin);
+
+  document.getElementById('admin-password')
+    .addEventListener('keydown',event=>{
+      if(event.key === 'Enter'){
+        checkAdminPassword();
+      }
+    });
+
+  document.getElementById('user-name')
+    .addEventListener('keydown',event=>{
+      if(event.key === 'Enter'){
+        enterUser();
+      }
+    });
 
   await initUser();
   await loadProgress();
@@ -1215,18 +1777,17 @@ window.addEventListener('DOMContentLoaded', async () => {
   const savedName = localStorage.getItem('ds_user_name');
   const savedRole = localStorage.getItem('ds_user_role');
 
-  if (savedName && savedRole) {
+  // Admin harus memasukkan password setiap kali membuka sesi baru.
+  // Sesi peserta tetap dapat dipulihkan dari browser.
+  if(savedName && savedRole === 'user'){
     userName = savedName;
-    userRole = savedRole;
+    userRole = 'user';
+
     userProgress.userName = savedName;
+
     updateNavForRole();
 
-    if (userProgress.moduleProgress.tips.completed) {
-      const button = document.getElementById('tips-complete-btn');
-      button.disabled = true;
-      button.textContent = '✓ Materi Sudah Selesai';
-    }
-  } else {
+  }else{
     showWelcomeScreen();
   }
 
