@@ -842,21 +842,35 @@ function updateQuizScore() {
 }
 
 // ================= SUPABASE PROGRESS TRACKING =================
-// Ganti URL dan ANON KEY dengan kredensial project Supabase milikmu.
-// ANON KEY boleh digunakan di browser jika RLS database dikonfigurasi dengan benar.
-// Jangan pernah menaruh service_role key di frontend.
+// Supabase Configuration
+// Menggunakan Publishable Key terbaru.
+// Jangan pernah menaruh Secret Key di frontend.
 
 const supabaseUrl = 'https://hrxclmxuybdjjxpglpwj.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6ImhyeGNsbXh1eWJkamp4cGdscHdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxMDA2MjgsImV4cCI6MjExMDY3NjY2fQ.eHLlVx-b3Gcfq8ueLIv7PWr_U4-sYrfgmZv2oCiEhQY';
 
+const supabasePublishableKey =
+  'sb_publishable_DNzxKYySuSxOWzmI9bgWKA_OX8tJcbF';
+
+// Initialize Supabase Client
 const supabaseClient = window.supabase
-  ? window.supabase.createClient(supabaseUrl, supabaseAnonKey)
+  ? window.supabase.createClient(
+      supabaseUrl,
+      supabasePublishableKey
+    )
   : null;
 
+if (supabaseClient) {
+  console.log('Supabase connected: Client initialized');
+} else {
+  console.error('Supabase library not loaded!');
+}
+
+// Progress tracking state
 let userProgress = {
   userId: null,
   totalQuizzesTaken: 0,
   totalQuizzesCorrect: 0,
+
   moduleProgress: {
     phishing: { completed: false, score: 0 },
     password: { completed: false, bestScore: 0 },
@@ -865,6 +879,7 @@ let userProgress = {
     quiz: { completed: false, score: 0 },
     tips: { completed: false }
   },
+
   points: 0,
   earnedBadges: []
 };
